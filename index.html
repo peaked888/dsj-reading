@@ -411,6 +411,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
         <button class="btn btn-blue" onclick="admAddMember()" style="margin-bottom:20px">新增學員</button>
         <div class="section-label">學員列表</div>
         <div class="card" id="adm-mbr-list"><div class="loading-view">載入中…</div></div>
+
+        <div class="danger-block">
+          <div class="danger-label" style="color:var(--blue)">補登讀經</div>
+          <div class="danger-desc">幫學員補登指定日期的讀經紀錄，計入連續讀經天數。</div>
+          <div class="form-card" style="margin-bottom:10px">
+            <div class="form-row">
+              <label>班別</label>
+              <select id="adm-makeup-cls" onchange="renderAdmMakeupList()">
+                <option value="big">大班</option>
+                <option value="small">小班</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label>學員</label>
+              <select id="adm-makeup-mid"><option value="">請選擇學員</option></select>
+            </div>
+            <div class="form-row">
+              <label>日期</label>
+              <input type="date" id="adm-makeup-date" style="text-align:right"/>
+            </div>
+            <div class="form-row" style="align-items:flex-start">
+              <label style="padding-top:14px">讀經內容</label>
+              <textarea id="adm-makeup-passages" placeholder="填寫讀經段落"></textarea>
+            </div>
+          </div>
+          <button class="btn btn-blue" onclick="admMakeup()" style="margin-bottom:20px">補登讀經 +5 分</button>
+        </div>
         <div class="danger-block">
           <div class="danger-label">密碼設定</div>
           <div class="form-card pw-wrap" style="margin-bottom:10px">
@@ -976,7 +1003,14 @@ window.switchAdmTab=function(id){
   document.getElementById('atab-'+id).classList.add('on');
   document.getElementById('apanel-'+id).classList.add('on');
   if(id==='rank')renderAdmRank();
-  if(id==='members'){renderAdmMembers();renderResetInfo();}
+  if(id==='members'){
+    renderAdmMembers();renderResetInfo();
+    // 初始化補登日期（預設昨天）和學員清單
+    const yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
+    const dateInp=document.getElementById('adm-makeup-date');
+    if(dateInp&&!dateInp.value) dateInp.value=localDK(yesterday);
+    window.renderAdmMakeupList();
+  }
   if(id==='parlog')renderAdmParLog();
   if(id==='weekly')renderWeeklyPreview();
   if(id==='monthly')renderMonthlyAdmin();
@@ -1035,7 +1069,51 @@ window.admAdjPts=async function(id,n){
   toast(m.name+' 積分已調整');await window.renderAdmMembers();await renderAdmRank();
 };
 window.admDel=async function(id,name){if(!confirm('確定移除「'+name+'」？'))return;await deleteMember(id);toast('已移除 '+name);await window.renderAdmMembers();await renderAdmRank();};
-window.admAddMember=async function(){const name=document.getElementById('adm-new-name').value.trim();const cls=document.getElementById('adm-cls-sel').value;if(!name){toast('請輸入姓名');return;}await saveMember({name,cls,pts:0});invalidateCache();document.getElementById('adm-new-name').value='';toast('已新增 '+name);await loadMembers(true);await window.renderAdmMembers();};
+window.renderAdmMakeupList=async function(){
+  const cls=document.getElementById('adm-makeup-cls').value;
+  const members=await loadMembers();
+  const sel=document.getElementById('adm-makeup-mid');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">請選擇學員</option>';
+  members.filter(m=>m.cls===cls).forEach(m=>{
+    const opt=document.createElement('option');
+    opt.value=m.id;opt.textContent=m.name;
+    if(m.id===cur)opt.selected=true;
+    sel.appendChild(opt);
+  });
+};
+
+window.admMakeup=async function(){
+  const mid=document.getElementById('adm-makeup-mid').value;
+  const dateVal=document.getElementById('adm-makeup-date').value;
+  const passages=document.getElementById('adm-makeup-passages').value.trim();
+  if(!mid){toast('請選擇學員');return;}
+  if(!dateVal){toast('請選擇補登日期');return;}
+  if(!passages){toast('請填寫讀經內容');return;}
+  // 不能是未來日期
+  if(dateVal>todayK()){toast('不能補登未來的日期');return;}
+  const members=await loadMembers();
+  const m=members.find(x=>x.id===mid);if(!m)return;
+  // 檢查當天是否已有紀錄
+  const rs=await getDocs(collection(db,'records'));
+  if(rs.docs.some(d=>{const r=d.data();return r.mid===mid&&r.date===dateVal;})){
+    toast(m.name+' 在 '+fmtD(dateVal)+' 已有紀錄，無法重複補登');return;
+  }
+  const btn=document.querySelector('[onclick="admMakeup()"]');
+  btn.textContent='補登中…';btn.disabled=true;
+  try{
+    // 後台補登：isMakeup 不設 true，計入連續讀經
+    await addDoc(collection(db,'records'),{mid,date:dateVal,passages,pts:5,isAdminMakeup:true,makeupAt:todayK()});
+    await addToMonthSnap(mid,5);
+    await updateMember(mid,{pts:(m.pts||0)+5});
+    document.getElementById('adm-makeup-mid').value='';
+    document.getElementById('adm-makeup-date').value='';
+    document.getElementById('adm-makeup-passages').value='';
+    toast(m.name+' '+fmtD(dateVal)+' 補登成功，+5 分！');
+    await window.renderAdmMembers();await renderAdmRank();
+  }catch(err){toast('補登失敗：'+err.message);}
+  finally{btn.textContent='補登讀經 +5 分';btn.disabled=false;}
+};const name=document.getElementById('adm-new-name').value.trim();const cls=document.getElementById('adm-cls-sel').value;if(!name){toast('請輸入姓名');return;}await saveMember({name,cls,pts:0});invalidateCache();document.getElementById('adm-new-name').value='';toast('已新增 '+name);await loadMembers(true);await window.renderAdmMembers();};
 window.admImport=async function(){
   const cls=document.getElementById('imp-cls').value;
   const raw=document.getElementById('imp-text').value;
