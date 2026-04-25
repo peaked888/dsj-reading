@@ -1094,10 +1094,10 @@ window.admMakeup=async function(){
   if(dateVal>todayK()){toast('不能補登未來的日期');return;}
   const members=await loadMembers();
   const m=members.find(x=>x.id===mid);if(!m)return;
-  // 檢查當天是否已有紀錄
+  // 檢查當天是否已有正式讀經紀錄（排除管理員調整）
   const rs=await getDocs(collection(db,'records'));
-  if(rs.docs.some(d=>{const r=d.data();return r.mid===mid&&r.date===dateVal;})){
-    toast(m.name+' 在 '+fmtD(dateVal)+' 已有紀錄，無法重複補登');return;
+  if(rs.docs.some(d=>{const r=d.data();return r.mid===mid&&r.date===dateVal&&r.type!=='adjust';})){
+    toast(m.name+' 在 '+fmtD(dateVal)+' 已有讀經紀錄，無法重複補登');return;
   }
   const btn=document.querySelector('[onclick="admMakeup()"]');
   btn.textContent='補登中…';btn.disabled=true;
