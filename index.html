@@ -692,8 +692,8 @@ async function renderWeeklyPub(){
     const wrapId=`weekly-hist-${i}`;
     const div=document.createElement('div');
     div.style.marginBottom='20px';
-    div.innerHTML=`<div class="section-label">${fmtFull(week.start)} ～ ${fmtFull(week.end)}</div>
-      <div class="card" id="${wrapId}"><div class="loading-view">載入中…</div></div>`;
+    div.innerHTML=`<div class="section-label">${fmtFull(week.start)} ～ ${fmtFull(week.end)}<\/div>
+      <div class="card" id="${wrapId}"><div class="loading-view">載入中…<\/div><\/div>`;
     histDiv.appendChild(div);
     renderWeeklyPubWeek(wrapId, members, allRecs, allAdj, allPar, week, false);
   });
@@ -1113,7 +1113,9 @@ window.admMakeup=async function(){
     await window.renderAdmMembers();await renderAdmRank();
   }catch(err){toast('補登失敗：'+err.message);}
   finally{btn.textContent='補登讀經 +5 分';btn.disabled=false;}
-};const name=document.getElementById('adm-new-name').value.trim();const cls=document.getElementById('adm-cls-sel').value;if(!name){toast('請輸入姓名');return;}await saveMember({name,cls,pts:0});invalidateCache();document.getElementById('adm-new-name').value='';toast('已新增 '+name);await loadMembers(true);await window.renderAdmMembers();};
+};
+
+window.admAddMember=async function(){const name=document.getElementById('adm-new-name').value.trim();const cls=document.getElementById('adm-cls-sel').value;if(!name){toast('請輸入姓名');return;}await saveMember({name,cls,pts:0});invalidateCache();document.getElementById('adm-new-name').value='';toast('已新增 '+name);await loadMembers(true);await window.renderAdmMembers();};
 window.admImport=async function(){
   const cls=document.getElementById('imp-cls').value;
   const raw=document.getElementById('imp-text').value;
