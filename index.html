@@ -647,6 +647,7 @@ async function renderWeeklyPub(){
     getDocs(collection(db,'parRecords'))
   ]);
   const allRecs=rs.docs.map(d=>d.data()).filter(r=>r.type!=='adjust');
+  const allAdj=rs.docs.map(d=>d.data()).filter(r=>r.type==='adjust');
   const allPar=ps.docs.map(d=>d.data());
 
   // 更新 seg 狀態
@@ -655,7 +656,7 @@ async function renderWeeklyPub(){
   });
 
   // 渲染本週成績
-  renderWeeklyPubWeek('weekly-pub-current', members, allRecs, allPar, curWeek, true);
+  renderWeeklyPubWeek('weekly-pub-current', members, allRecs, allAdj, allPar, curWeek, true);
 
   // 渲染歷史3週
   const histDiv=document.getElementById('weekly-pub-history');
@@ -667,17 +668,19 @@ async function renderWeeklyPub(){
     div.innerHTML=`<div class="section-label">${fmtFull(week.start)} ～ ${fmtFull(week.end)}</div>
       <div class="card" id="${wrapId}"><div class="loading-view">載入中…</div></div>`;
     histDiv.appendChild(div);
-    renderWeeklyPubWeek(wrapId, members, allRecs, allPar, week, false);
+    renderWeeklyPubWeek(wrapId, members, allRecs, allAdj, allPar, week, false);
   });
 }
 
-function renderWeeklyPubWeek(containerId, members, allRecs, allPar, week, isCurrentWeek){
-  // 計算該週每人積分
+function renderWeeklyPubWeek(containerId, members, allRecs, allAdj, allPar, week, isCurrentWeek){
+  // 計算該週每人積分（含管理員調整）
   const wPts={};
   allRecs.filter(r=>dateInRangeW(r.date,week.start,week.end))
     .forEach(r=>{ wPts[r.mid]=(wPts[r.mid]||0)+(r.pts||5); });
   allPar.filter(r=>dateInRangeW(r.date,week.start,week.end))
     .forEach(r=>{ wPts[r.awardMid]=(wPts[r.awardMid]||0)+(r.pts||5); });
+  allAdj.filter(r=>dateInRangeW(r.date,week.start,week.end))
+    .forEach(r=>{ wPts[r.mid]=(wPts[r.mid]||0)+(r.pts||0); });
 
   const students=members
     .filter(m=>m.cls!=='parent')
