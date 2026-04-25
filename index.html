@@ -737,8 +737,16 @@ function calcStreak(mid,allRecs,allPar){
   allRecs.filter(r=>r.mid===mid&&!r.isMakeup).forEach(r=>{if(r.date)ds.add(r.date);});
   allPar.filter(r=>r.awardMid===mid).forEach(r=>{if(r.date)ds.add(r.date);});
   if(!ds.size)return 0;
-  let n=0;const d=new Date();d.setHours(0,0,0,0);
-  while(ds.has(localDK(d))){n++;d.setDate(d.getDate()-1);}return n;
+  const today=new Date();today.setHours(0,0,0,0);
+  const yesterday=new Date(today);yesterday.setDate(today.getDate()-1);
+  // 今天已登記從今天算；今天還沒登記但昨天有，從昨天算（不中斷）；兩天都沒就是 0
+  let start;
+  if(ds.has(localDK(today))) start=new Date(today);
+  else if(ds.has(localDK(yesterday))) start=new Date(yesterday);
+  else return 0;
+  let n=0;const d=new Date(start);
+  while(ds.has(localDK(d))){n++;d.setDate(d.getDate()-1);}
+  return n;
 }
 function renderStreaks(members,allRecs,allPar){
   const list=members.filter(m=>m.cls!=='parent').map(m=>({...m,s:calcStreak(m.id,allRecs,allPar)})).filter(m=>m.s>=2).sort((a,b)=>b.s-a.s).slice(0,5);
