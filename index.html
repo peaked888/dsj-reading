@@ -855,7 +855,7 @@ window.goRecord=async function(mid){
   document.getElementById('rec-back-btn').onclick=()=>window.goClass(m.cls);
   const today=todayK();
   const rs=await getDocs(collection(db,'records'));
-  const done=rs.docs.some(d=>{const r=d.data();return r.mid===mid&&r.date===today;});
+  const done=rs.docs.some(d=>{const r=d.data();return r.mid===mid&&r.date===today&&r.type!=='adjust';});
   const btn=document.getElementById('rec-submit');
   btn.className=done?'btn btn-done':'btn btn-blue';
   btn.textContent=done?'今日已完成讀經 ✓':'完成讀經，獲得 +5 分';btn.disabled=!!done;
