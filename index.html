@@ -1115,7 +1115,22 @@ window.admMakeup=async function(){
   finally{btn.textContent='補登讀經 +5 分';btn.disabled=false;}
 };
 
-window.admAddMember=async function(){const name=document.getElementById('adm-new-name').value.trim();const cls=document.getElementById('adm-cls-sel').value;if(!name){toast('請輸入姓名');return;}await saveMember({name,cls,pts:0});invalidateCache();document.getElementById('adm-new-name').value='';toast('已新增 '+name);await loadMembers(true);await window.renderAdmMembers();};
+window.admAddMember=async function(){
+  const name=document.getElementById('adm-new-name').value.trim();
+  const cls=document.getElementById('adm-cls-sel').value;
+  if(!name){toast('請輸入姓名');return;}
+  // 防重複：檢查同班是否已有同名學員
+  const members=await loadMembers();
+  if(members.some(m=>m.cls===cls&&m.name===name)){
+    toast(CLS_N[cls]+'已有「'+name+'」，請勿重複新增');return;
+  }
+  await saveMember({name,cls,pts:0});
+  invalidateCache();
+  document.getElementById('adm-new-name').value='';
+  toast('已新增 '+name);
+  await loadMembers(true);
+  await window.renderAdmMembers();
+};
 window.admImport=async function(){
   const cls=document.getElementById('imp-cls').value;
   const raw=document.getElementById('imp-text').value;
@@ -1282,7 +1297,15 @@ window.exportJSON=function(){const rows=window._bkRows;if(!rows||!rows.length){t
 
 // ── Seed ───────────────────────────────────────────────────
 async function seedIfEmpty(){
-  const s=await getDocs(collection(db,'members'));if(s.size>0)return;
+  const s=await getDocs(collection(db,'members'));
+  // 三層防護：
+  // 1. 超過10人絕對不執行（正常使用後不可能回到0人）
+  if(s.size>=10)return;
+  // 2. 有任何學員就跳過
+  if(s.size>0)return;
+  // 3. Double-check：再讀一次確認真的是0人（防止網路延遲誤判）
+  const s2=await getDocs(collection(db,'members'));
+  if(s2.size>0)return;
   const SEED=[['big','林宜萱'],['big','李映瑩'],['big','林辰宣'],['big','趙于瑩'],['big','黃詩芸'],['big','范嘉琳'],['big','黃梓昕'],['big','廖述正'],['big','陳映辰'],['big','賴宥丞'],['big','洪勤訸'],['big','黃詩媛'],['big','黃詩祐'],['big','曾宥銓'],['big','蕭孟哲'],['big','廖語晨'],['big','吳仲碩'],['big','江育葳'],['big','周朋諺'],['big','黃梓燁'],['big','陳翊綾'],['big','林沛甯'],['big','張心瑀'],['big','吳品澔'],['big','沈浿庭'],['big','魏以勒'],['big','洪鈺庭'],['big','洪鈺家'],['big','紀語柔'],['big','紀語宸'],['big','廖宣昀'],['big','劉映彣'],['small','賴宥銘'],['small','張雅筑'],['small','劉宸靜'],['small','黃宥妘'],['small','廖姵晨'],['small','李禹晴'],['small','李禹暘'],['small','黃宥妡'],['small','陳旻柔'],['small','林可晨'],['small','顏寧萱'],['small','鄞瑜萱'],['small','林宥彤'],['small','賴宥維'],['small','温梓余'],['small','蕭宥歆'],['small','許惟甯'],['small','陳柏勛'],['small','温俞甯'],['small','林善甯'],['small','李恩奎'],['small','張丞汛'],['small','洪品睿'],['small','葉依昀'],['small','林歆芮'],['small','林震珅'],['small','陳亮澄']];
   toast('首次啟動，初始化學員…');for(const[cls,name]of SEED)await saveMember({name,cls,pts:0});toast('初始化完成！');
 }
