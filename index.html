@@ -60,7 +60,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
 .section-label{font-size:12px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;padding:0 4px}
 
 /* ── CLASS CARDS ── */
-.class-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.class-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
 .cls-card{background:#fff;border-radius:var(--radius-lg);padding:16px 8px 14px;text-align:center;cursor:pointer;box-shadow:var(--shadow);transition:box-shadow .15s,transform .12s;-webkit-user-select:none}
 .cls-card:active{transform:scale(.95);box-shadow:none}
 .cls-icon{width:48px;height:48px;border-radius:14px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff}
@@ -119,7 +119,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
 
 /* ── MEMBER GRID ── */
 .mbr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px}
-.mbr-chip{background:#fff;border-radius:var(--radius-lg);padding:14px 8px;text-align:center;cursor:pointer;box-shadow:var(--shadow);-webkit-user-select:none;transition:all .12s}
+.mbr-chip{background:#fff;border:none;font-family:inherit;border-radius:var(--radius-lg);padding:14px 8px;text-align:center;cursor:pointer;box-shadow:var(--shadow);-webkit-user-select:none;transition:all .12s}
 .mbr-chip:active{transform:scale(.93);box-shadow:none}
 .mbr-chip.sel{box-shadow:0 0 0 2.5px var(--blue),var(--shadow)}
 .mbr-av{width:40px;height:40px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff}
@@ -163,6 +163,52 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
 .btn-dark-red{background:#B31412;color:#fff}
 .btn-ghost{background:var(--blue-lt);color:var(--blue)}
 .btn-done{background:var(--bg);color:var(--t2)}
+
+/* ── DAILY CHECK-IN V1 ── */
+.daily-hero{background:linear-gradient(145deg,#1769D2,#4B8FF0);color:#fff;border-radius:22px;padding:22px 20px;margin-bottom:16px;box-shadow:0 10px 28px rgba(26,115,232,.24)}
+.daily-eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;opacity:.82;margin-bottom:7px}
+.daily-title{font-size:25px;font-weight:800;line-height:1.25;margin-bottom:7px}
+.daily-sub{font-size:14px;line-height:1.55;opacity:.9;margin-bottom:18px}
+.daily-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.daily-action{border:none;border-radius:14px;padding:13px 10px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;background:#fff;color:var(--blue)}
+.daily-action.parent{background:var(--gold);color:#fff}
+.daily-action:active{transform:scale(.97)}
+.remember-card{display:none;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:16px;margin-bottom:18px}
+.remember-top{display:flex;align-items:center;gap:12px}
+.remember-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;font-weight:700;flex-shrink:0}
+.remember-av.big{background:var(--blue)}.remember-av.small{background:var(--green)}
+.remember-main{flex:1;min-width:0}
+.remember-name{font-size:16px;font-weight:700}.remember-meta{font-size:12px;color:var(--t2);margin-top:2px}
+.remember-state{font-size:12px;font-weight:700;border-radius:20px;padding:5px 9px;background:var(--gold-lt);color:#7A5000;white-space:nowrap}
+.remember-state.done{background:var(--green-lt);color:var(--green)}
+.remember-btn{width:100%;border:none;border-radius:11px;background:var(--blue-lt);color:var(--blue);font-family:inherit;font-size:14px;font-weight:700;padding:11px;margin-top:13px;cursor:pointer}
+.today-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.today-stat{background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:15px}
+.today-stat-num{font-size:23px;font-weight:800;color:var(--blue)}
+.today-stat.parent .today-stat-num{color:var(--gold)}
+.today-stat-label{font-size:12px;color:var(--t2);margin-top:3px}
+.quick-wrap{display:flex;gap:8px;overflow-x:auto;padding:1px 1px 10px;margin-bottom:4px;scrollbar-width:none}
+.quick-wrap::-webkit-scrollbar{display:none}
+.quick-chip{flex:0 0 auto;border:1px solid var(--sep);background:#fff;color:var(--t2);border-radius:20px;padding:8px 12px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.quick-chip:active{background:var(--blue-lt);color:var(--blue);border-color:var(--blue-lt)}
+.pick-search{width:100%;border:1px solid var(--sep);background:#fff;border-radius:13px;padding:12px 14px;font-family:inherit;font-size:15px;font-weight:500;outline:none;margin-bottom:14px;box-shadow:var(--shadow)}
+.pick-search:focus{border-color:var(--blue)}
+.cls-card{border:none;font-family:inherit;width:100%}
+.mbr-status-done{color:var(--green);font-weight:700}.mbr-status-wait{color:var(--t3)}
+.remember-switch{border:none;background:none;color:var(--t2);font-family:inherit;font-size:12px;font-weight:600;padding:8px 4px 0;cursor:pointer;width:100%}
+.home-more{background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
+.home-more>summary{list-style:none;cursor:pointer;padding:15px 16px;font-size:14px;font-weight:700;color:var(--blue);display:flex;align-items:center;justify-content:space-between}
+.home-more>summary::-webkit-details-marker{display:none}.home-more>summary::after{content:'＋';font-size:18px}.home-more[open]>summary::after{content:'－'}
+.home-more-body{padding:0 14px 4px;border-top:1px solid var(--sep)}
+.admin-entry{display:block;margin:6px auto 0;border:none;background:none;color:var(--t3);font-family:inherit;font-size:12px;font-weight:600;padding:12px;cursor:pointer}
+.parent-change{display:none;width:100%;border:1px solid rgba(249,171,0,.35);background:#fff;color:#7A5000;border-radius:10px;padding:10px;font-family:inherit;font-size:13px;font-weight:700;margin-top:10px;cursor:pointer}
+.success-page{justify-content:center;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 36px) 24px calc(env(safe-area-inset-bottom,0px) + 30px);text-align:center;background:linear-gradient(180deg,#F4F8FF 0%,#fff 58%)}
+.success-icon{width:92px;height:92px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:700;box-shadow:0 12px 30px rgba(52,168,83,.25);margin-bottom:24px;animation:success-pop .36s ease-out}
+@keyframes success-pop{from{transform:scale(.65);opacity:0}to{transform:scale(1);opacity:1}}
+.success-title{font-size:26px;font-weight:800;margin-bottom:8px}.success-sub{font-size:15px;color:var(--t2);line-height:1.6;margin-bottom:22px}
+.success-card{width:100%;background:#fff;border-radius:18px;box-shadow:var(--shadow-md);padding:18px;margin-bottom:22px;text-align:left}
+.success-row{display:flex;justify-content:space-between;gap:14px;padding:8px 0;font-size:14px}.success-row+.success-row{border-top:1px solid var(--sep)}
+.success-label{color:var(--t2)}.success-value{font-weight:700;text-align:right;word-break:break-word}.success-actions{width:100%;display:grid;gap:10px}
 
 /* ── AWARD BOX ── */
 .award-box{background:var(--gold-lt);border-radius:var(--radius-lg);padding:16px;margin-bottom:14px;border:1px solid rgba(249,171,0,.20)}
@@ -248,35 +294,61 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
     </div>
   </div>
   <div class="scroll-body">
-    <div class="section-label">選擇班別</div>
+    <div class="daily-hero">
+      <div class="daily-eyebrow">每日讀經打卡</div>
+      <div class="daily-title">今天也一起讀經吧</div>
+      <div class="daily-sub">每天一分鐘完成登記，累積孩子與家庭的讀經習慣。</div>
+      <div class="daily-actions">
+        <button class="daily-action" onclick="startChildCheckin()">孩子打卡</button>
+        <button class="daily-action parent" onclick="goParent()">家長打卡</button>
+      </div>
+    </div>
+
+    <div class="remember-card" id="remember-card">
+      <div class="remember-top">
+        <div class="remember-av" id="remember-av"></div>
+        <div class="remember-main"><div class="remember-name" id="remember-name"></div><div class="remember-meta" id="remember-meta"></div></div>
+        <div class="remember-state" id="remember-state"></div>
+      </div>
+      <button class="remember-btn" id="remember-btn" onclick="continueRememberedMember()">繼續打卡</button>
+      <button class="remember-switch" onclick="forgetRememberedMember()">切換其他孩子</button>
+    </div>
+
+    <div class="section-label">今日完成情況</div>
+    <div class="today-stats">
+      <div class="today-stat"><div class="today-stat-num" id="today-child-stat">—</div><div class="today-stat-label">孩子已完成</div></div>
+      <div class="today-stat parent"><div class="today-stat-num" id="today-parent-stat">—</div><div class="today-stat-label">家長已完成</div></div>
+    </div>
+
+    <div class="section-label" id="home-class-chooser">選擇班別</div>
     <div class="class-grid">
-      <div class="cls-card cls-big" onclick="goClass('big')">
+      <button type="button" class="cls-card cls-big" onclick="goClass('big')">
         <div class="cls-icon">大</div>
         <div class="cls-name">大班</div>
         <div class="cls-count" id="cnt-big">— 位</div>
-      </div>
-      <div class="cls-card cls-small" onclick="goClass('small')">
+      </button>
+      <button type="button" class="cls-card cls-small" onclick="goClass('small')">
         <div class="cls-icon">小</div>
         <div class="cls-name">小班</div>
         <div class="cls-count" id="cnt-small">— 位</div>
-      </div>
-      <div class="cls-card cls-parent" onclick="goParent()">
-        <div class="cls-icon">家</div>
-        <div class="cls-name">家長班</div>
-        <div class="cls-count">讀經加分</div>
-      </div>
+      </button>
     </div>
 
-    <div class="section-label">連續讀經之星 🔥</div>
-    <div class="card" id="home-streaks"><div class="loading-view">載入中…</div></div>
-
-    <div class="section-label">本月積分排行 🏆</div>
-    <div class="seg" id="monthly-seg">
-      <button class="seg-btn on" onclick="setMonthlyFilter('all')">全部</button>
-      <button class="seg-btn" onclick="setMonthlyFilter('big')">大班</button>
-      <button class="seg-btn" onclick="setMonthlyFilter('small')">小班</button>
-    </div>
-    <div class="card" id="home-monthly"><div class="loading-view">載入中…</div></div>
+    <details class="home-more">
+      <summary>查看連續之星與本月排行</summary>
+      <div class="home-more-body">
+        <div class="section-label" style="margin-top:16px">連續讀經之星 🔥</div>
+        <div class="card" id="home-streaks"><div class="loading-view">載入中…</div></div>
+        <div class="section-label">本月積分排行 🏆</div>
+        <div class="seg" id="monthly-seg">
+          <button class="seg-btn on" onclick="setMonthlyFilter('all')">全部</button>
+          <button class="seg-btn" onclick="setMonthlyFilter('big')">大班</button>
+          <button class="seg-btn" onclick="setMonthlyFilter('small')">小班</button>
+        </div>
+        <div class="card" id="home-monthly"><div class="loading-view">載入中…</div></div>
+      </div>
+    </details>
+    <button class="admin-entry" onclick="goAdminLogin()">管理員入口</button>
   </div>
 </div>
 
@@ -288,6 +360,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
     <div class="page-nav-right"></div>
   </div>
   <div class="scroll-body">
+    <input class="pick-search" id="pick-search" type="search" placeholder="搜尋學員姓名" oninput="filterPickMembers(this.value)"/>
     <div class="mbr-grid" id="pick-grid"><div class="loading-view" style="grid-column:1/-1">載入中…</div></div>
   </div>
 </div>
@@ -307,6 +380,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
     </div>
 
     <div class="section-label">今日讀經內容</div>
+    <div class="quick-wrap" id="rec-quick-wrap">
+      <button class="quick-chip" onclick="setQuickPassage('rec-passage-input','弟子規')">弟子規</button>
+      <button class="quick-chip" onclick="setQuickPassage('rec-passage-input','朱子家訓')">朱子家訓</button>
+      <button class="quick-chip" onclick="setQuickPassage('rec-passage-input','正氣歌')">正氣歌</button>
+      <button class="quick-chip" onclick="setQuickPassage('rec-passage-input','百孝經')">百孝經</button>
+      <button class="quick-chip" onclick="setQuickPassage('rec-passage-input','醒世妙文')">醒世妙文</button>
+    </div>
     <div class="form-standalone"><textarea id="rec-passage-input" placeholder="填寫今天讀的段落，例：創世記 1:1-10" rows="3"></textarea></div>
     <button class="btn btn-blue" id="rec-submit" onclick="submitRecord()" style="margin-bottom:24px">完成讀經，獲得 +5 分</button>
 
@@ -328,22 +408,48 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
       <div class="form-row"><label>家長姓名</label><input id="par-name" placeholder="請輸入姓名" type="text"/></div>
       <div class="form-row" style="align-items:flex-start"><label style="padding-top:14px">讀經內容</label><textarea id="par-passage-input" placeholder="今天讀的段落"></textarea></div>
     </div>
+    <div class="quick-wrap">
+      <button class="quick-chip" onclick="setQuickPassage('par-passage-input','弟子規')">弟子規</button>
+      <button class="quick-chip" onclick="setQuickPassage('par-passage-input','朱子家訓')">朱子家訓</button>
+      <button class="quick-chip" onclick="setQuickPassage('par-passage-input','正氣歌')">正氣歌</button>
+      <button class="quick-chip" onclick="setQuickPassage('par-passage-input','百孝經')">百孝經</button>
+      <button class="quick-chip" onclick="setQuickPassage('par-passage-input','醒世妙文')">醒世妙文</button>
+    </div>
 
     <div class="section-label">選擇加分孩子</div>
     <div class="award-box">
       <div class="award-title">讀經後幫孩子加 5 分，請選擇班別與學員</div>
-      <div class="seg" style="margin-bottom:14px">
-        <button class="seg-btn on" id="par-seg-big" onclick="parSwitchCls('big')">大班</button>
-        <button class="seg-btn" id="par-seg-small" onclick="parSwitchCls('small')">小班</button>
+      <div id="par-picker-controls">
+        <div class="seg" style="margin-bottom:14px">
+          <button class="seg-btn on" id="par-seg-big" onclick="parSwitchCls('big')">大班</button>
+          <button class="seg-btn" id="par-seg-small" onclick="parSwitchCls('small')">小班</button>
+        </div>
+        <div id="par-big-sec"><div class="mbr-grid" id="par-big-grid"></div></div>
+        <div id="par-small-sec" style="display:none"><div class="mbr-grid" id="par-small-grid"></div></div>
       </div>
-      <div id="par-big-sec"><div class="mbr-grid" id="par-big-grid"></div></div>
-      <div id="par-small-sec" style="display:none"><div class="mbr-grid" id="par-small-grid"></div></div>
       <div class="award-confirm" id="par-confirm-banner"></div>
+      <button class="parent-change" id="par-change-btn" onclick="showParentPicker()">更換孩子</button>
     </div>
     <button class="btn btn-gold" id="par-submit" onclick="submitParent()" style="margin-bottom:24px">送出，加分給選取的孩子</button>
 
     <div class="section-label">家長班紀錄</div>
     <div class="card" id="par-history"><div class="loading-view">載入中…</div></div>
+  </div>
+</div>
+
+<!-- ════ CHECK-IN SUCCESS ════ -->
+<div class="page success-page" id="pg-success">
+  <div class="success-icon">✓</div>
+  <div class="success-title" id="success-title">今天讀經完成！</div>
+  <div class="success-sub" id="success-sub">做得很好，明天也一起繼續。</div>
+  <div class="success-card">
+    <div class="success-row"><span class="success-label">讀經內容</span><span class="success-value" id="success-passage"></span></div>
+    <div class="success-row"><span class="success-label">本次獎勵</span><span class="success-value" id="success-points">+5 分</span></div>
+    <div class="success-row" id="success-progress-row"><span class="success-label">本週進度</span><span class="success-value" id="success-progress"></span></div>
+  </div>
+  <div class="success-actions">
+    <button class="btn btn-blue" onclick="navTo('home')">回到首頁</button>
+    <button class="btn btn-ghost" id="success-secondary">查看紀錄</button>
   </div>
 </div>
 
@@ -521,17 +627,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
     <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><polyline points="9,21 9,12 15,12 15,21"/></svg>
     <span>首頁</span>
   </button>
-  <button class="nav-item" id="nav-weekly" onclick="navTo('weekly')">
-    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8" y2="14" stroke-width="3" stroke-linecap="round"/><line x1="12" y1="14" x2="12" y2="14" stroke-width="3" stroke-linecap="round"/><line x1="16" y1="14" x2="16" y2="14" stroke-width="3" stroke-linecap="round"/><line x1="8" y1="18" x2="8" y2="18" stroke-width="3" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="18" stroke-width="3" stroke-linecap="round"/></svg>
-    <span>週報</span>
+  <button class="nav-item" id="nav-checkin" onclick="navTo('checkin')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg>
+    <span>孩子打卡</span>
   </button>
   <button class="nav-item" id="nav-parent" onclick="navTo('parent')">
     <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><circle cx="16" cy="8" r="2"/><path d="M2 21v-1a7 7 0 0114 0v1"/><path d="M16 13a5 5 0 015 5v3"/></svg>
-    <span>家長班</span>
+    <span>家長打卡</span>
   </button>
-  <button class="nav-item" id="nav-admin" onclick="navTo('admin')">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M12 14c-6 0-8 2.686-8 4v1h16v-1c0-1.314-2-4-8-4z"/><path d="M17 3l1.5 1.5L17 6M19 1l-2 2 2 2"/></svg>
-    <span>後台</span>
+  <button class="nav-item" id="nav-weekly" onclick="navTo('weekly')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8" y2="14" stroke-width="3" stroke-linecap="round"/><line x1="12" y1="14" x2="12" y2="14" stroke-width="3" stroke-linecap="round"/><line x1="16" y1="14" x2="16" y2="14" stroke-width="3" stroke-linecap="round"/><line x1="8" y1="18" x2="8" y2="18" stroke-width="3" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="18" stroke-width="3" stroke-linecap="round"/></svg>
+    <span>週報</span>
   </button>
 </nav>
 
@@ -560,7 +666,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
 
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-import{getFirestore,doc,getDoc,setDoc,updateDoc,collection,getDocs,addDoc,deleteDoc}from"https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import{getFirestore,doc,getDoc,setDoc,updateDoc,collection,getDocs,addDoc,deleteDoc,runTransaction}from"https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
 const FB={apiKey:"AIzaSyAQBaEN3brNx5tjlIv1yFuOlgkhLra0uaU",authDomain:"reading-record-311a1.firebaseapp.com",projectId:"reading-record-311a1",storageBucket:"reading-record-311a1.firebasestorage.app",messagingSenderId:"957724784316",appId:"1:957724784316:web:b33a441f75b8d8aafc82b9"};
 const db=getFirestore(initializeApp(FB));
@@ -574,6 +680,35 @@ const fmtD=k=>k?k.replace(/-/g,'/'):'-';
 const fmtFull=d=>localDK(d).replace(/-/g,'/');
 const monthKey=(d)=>{d=d||new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;};
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
+
+// ── Device memory ──────────────────────────────────────────
+const STORE={member:'dsj-v1-member',parentName:'dsj-v1-parent-name',parentChild:'dsj-v1-parent-child',lastPassage:'dsj-v1-last-passage',parentLastPassage:'dsj-v1-parent-last-passage'};
+function readStore(key){try{return localStorage.getItem(key)||'';}catch{return'';}}
+function writeStore(key,value){try{localStorage.setItem(key,value);}catch{}}
+function removeStore(key){try{localStorage.removeItem(key);}catch{}}
+function readJSON(key){try{return JSON.parse(readStore(key))||null;}catch{return null;}}
+function writeJSON(key,value){writeStore(key,JSON.stringify(value));}
+function normalizeMemberName(name){return String(name||'').normalize('NFKC').replace(/\s+/g,' ').trim();}
+function stableDocId(...parts){return'v1__'+encodeURIComponent(parts.map(v=>String(v)).join('|'));}
+window.setQuickPassage=function(inputId,text){const el=document.getElementById(inputId);if(!el)return;el.value=text;el.focus();};
+window.startChildCheckin=async function(){
+  const saved=readJSON(STORE.member);const members=await loadMembers();
+  if(saved&&members.some(m=>m.id===saved.id)){await window.goRecord(saved.id);return;}
+  toast('請先選擇孩子的班別');
+  document.getElementById('home-class-chooser').scrollIntoView({behavior:'smooth',block:'start'});
+};
+window.continueRememberedMember=async function(){const saved=readJSON(STORE.member);if(saved&&saved.id)await window.goRecord(saved.id);};
+window.forgetRememberedMember=function(){removeStore(STORE.member);document.getElementById('remember-card').style.display='none';toast('已切換，請重新選擇孩子');document.getElementById('home-class-chooser').scrollIntoView({behavior:'smooth',block:'start'});};
+window.showCheckinSuccess=function({title,sub,passage,points='+5 分',progress='',secondaryLabel='查看紀錄',secondaryAction}){
+  document.getElementById('success-title').textContent=title;
+  document.getElementById('success-sub').textContent=sub;
+  document.getElementById('success-passage').textContent=passage;
+  document.getElementById('success-points').textContent=points;
+  const progressRow=document.getElementById('success-progress-row');progressRow.style.display=progress?'flex':'none';
+  document.getElementById('success-progress').textContent=progress;
+  const secondary=document.getElementById('success-secondary');secondary.textContent=secondaryLabel;secondary.onclick=secondaryAction;
+  showPage('pg-success');
+};
 
 // ── Cache ──────────────────────────────────────────────────
 let _mc=[],_mct=0,_ptsc=null;
@@ -598,21 +733,13 @@ async function calcAllPtsFromRecords(){
   ps.docs.forEach(d=>{const r=d.data();pts[r.awardMid]=(pts[r.awardMid]||0)+(r.pts||5);});
   Object.keys(pts).forEach(k=>{if(pts[k]<0)pts[k]=0;});return pts;
 }
-function normalizeMemberName(name){return String(name||'').normalize('NFKC').replace(/\s+/g,' ').trim();}
-function memberDocId(cls,name){return'v1__'+encodeURIComponent(cls+'|'+normalizeMemberName(name));}
+function memberDocId(cls,name){return stableDocId('member',cls,normalizeMemberName(name));}
 async function saveMember(data){
   const name=normalizeMemberName(data.name);
   if(!name)throw new Error('學員姓名不可為空');
-
-  // 先相容既有的隨機文件 ID；相同班別、標準化後同名就不再新增。
   const current=await getDocs(collection(db,'members'));
-  const existing=current.docs.find(d=>{
-    const m=d.data();
-    return m.cls===data.cls&&normalizeMemberName(m.name)===name;
-  });
+  const existing=current.docs.find(d=>{const m=d.data();return m.cls===data.cls&&normalizeMemberName(m.name)===name;});
   if(existing)return{id:existing.id,created:false};
-
-  // 新資料改用固定文件 ID。多個裝置同時新增時會寫入同一筆，而不是產生多筆。
   const id=memberDocId(data.cls,name);
   await setDoc(doc(db,'members',id),{...data,name});
   return{id,created:true};
@@ -633,7 +760,7 @@ window.showPage=function(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  const showNav=['pg-home','pg-rank','pg-weekly','pg-admin'].includes(id);
+  const showNav=['pg-home','pg-weekly','pg-parent'].includes(id);
   document.getElementById('bottom-nav').style.display=showNav?'flex':'none';
   if(id==='pg-home')renderHome();
   if(id==='pg-admin')renderAdmin();
@@ -642,12 +769,12 @@ window.showPage=function(id){
 
 window.navTo=function(tab){
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
-  document.getElementById('nav-'+tab).classList.add('active');
+  const nav=document.getElementById('nav-'+tab);if(nav)nav.classList.add('active');
   if(tab==='home'){showPage('pg-home');}
+  else if(tab==='checkin'){showPage('pg-home');window.startChildCheckin();}
   else if(tab==='weekly'){showPage('pg-weekly');renderWeeklyPub();}
   else if(tab==='rank'){showPage('pg-rank');renderRankPage();}
   else if(tab==='parent'){window.goParent();}
-  else if(tab==='admin'){window.goAdminLogin();}
 };
 
 // ── Weekly Report (Public) ────────────────────────────────
@@ -776,8 +903,29 @@ async function renderHome(){
   const[rs,ps,snap]=await Promise.all([getDocs(collection(db,'records')),getDocs(collection(db,'parRecords')),getMonthSnap()]);
   const allRecs=rs.docs.map(d=>d.data()).filter(r=>r.type!=='adjust');
   const allPar=ps.docs.map(d=>d.data());
+  const today=todayK();
+  window._todayDoneMids=new Set(allRecs.filter(r=>r.date===today).map(r=>r.mid));
+  document.getElementById('today-child-stat').textContent=window._todayDoneMids.size+' 人';
+  document.getElementById('today-parent-stat').textContent=new Set(allPar.filter(r=>r.date===today).map(r=>normalizeMemberName(r.parentName))).size+' 人';
+  renderRememberedCard(members,allRecs,allPar);
   renderStreaks(members,allRecs,allPar);
   renderMonthlyHome(members,snap);
+}
+
+function renderRememberedCard(members,allRecs,allPar){
+  const card=document.getElementById('remember-card');const saved=readJSON(STORE.member);
+  const m=saved&&members.find(x=>x.id===saved.id);
+  if(!m){card.style.display='none';return;}
+  const today=todayK();const done=allRecs.some(r=>r.mid===m.id&&r.date===today);
+  const week=getWeekRange();
+  const weekDays=new Set(allRecs.filter(r=>r.mid===m.id&&dateInRange(r.date,week.start,week.end)).map(r=>r.date)).size;
+  document.getElementById('remember-av').className='remember-av '+m.cls;
+  document.getElementById('remember-av').textContent=m.name.slice(0,1);
+  document.getElementById('remember-name').textContent=m.name;
+  document.getElementById('remember-meta').textContent=CLS_N[m.cls]+'・本週 '+weekDays+'/7 天・連續 '+calcStreak(m.id,allRecs,allPar)+' 天';
+  const state=document.getElementById('remember-state');state.className='remember-state'+(done?' done':'');state.textContent=done?'今日完成':'尚未打卡';
+  document.getElementById('remember-btn').textContent=done?'查看今日紀錄':'為 '+m.name+' 打卡';
+  card.style.display='block';
 }
 
 function calcStreak(mid,allRecs,allPar){
@@ -843,37 +991,43 @@ window.setRankFilter=async function(f){rankFilter=f;await renderRankPage();};
 window.goClass=async function(cls){
   curCls=cls;window.curCls=cls;
   document.getElementById('pick-title').textContent=CLS_N[cls];
+  document.getElementById('pick-search').value='';
   showPage('pg-pick');
   const grid=document.getElementById('pick-grid');
-  const renderGrid=(list,ptsMap)=>{
-    grid.innerHTML='';
-    if(!list.length){grid.innerHTML=`<div class="empty-view" style="grid-column:1/-1">此班尚無學員</div>`;return;}
-    list.forEach(m=>{
-      const d=document.createElement('div');d.className='mbr-chip';
-      d.innerHTML=`<div class="mbr-av av-${cls}">${m.name.slice(0,1)}</div><div class="mbr-name">${eh(m.name)}</div><div class="mbr-pts">${ptsMap[m.id]||0} 分</div>`;
-      d.onclick=()=>window.goRecord(m.id);grid.appendChild(d);
-    });
-  };
-  if(_mc.length>0){const cached=_mc.filter(m=>m.cls===cls);const pm={};cached.forEach(m=>{pm[m.id]=Math.max(0,m.pts||0);});renderGrid(cached,pm);}
+  if(_mc.length>0){const cached=_mc.filter(m=>m.cls===cls);window._pickMembers=cached;renderPickGrid(cached);}
   else{grid.innerHTML='<div class="loading-view" style="grid-column:1/-1">載入中…</div>';}
-  const members=await loadMembers();const ptsMap=await getPtsMap();
-  renderGrid(members.filter(m=>m.cls===cls),ptsMap);
+  const members=await loadMembers();
+  if(!window._todayDoneMids){const rs=await getDocs(collection(db,'records'));window._todayDoneMids=new Set(rs.docs.map(d=>d.data()).filter(r=>r.date===todayK()&&r.type!=='adjust').map(r=>r.mid));}
+  window._pickMembers=members.filter(m=>m.cls===cls);renderPickGrid(window._pickMembers);
 };
+function renderPickGrid(list){
+  const grid=document.getElementById('pick-grid');grid.innerHTML='';
+  if(!list.length){grid.innerHTML=`<div class="empty-view" style="grid-column:1/-1">找不到符合的學員</div>`;return;}
+  list.forEach(m=>{
+    const d=document.createElement('button');d.type='button';d.className='mbr-chip';
+    const done=window._todayDoneMids&&window._todayDoneMids.has(m.id);
+    d.innerHTML=`<div class="mbr-av av-${m.cls}">${m.name.slice(0,1)}</div><div class="mbr-name">${eh(m.name)}</div><div class="mbr-pts ${done?'mbr-status-done':'mbr-status-wait'}">${done?'今日完成 ✓':'尚未打卡'}</div>`;
+    d.onclick=()=>window.goRecord(m.id);grid.appendChild(d);
+  });
+}
+window.filterPickMembers=function(value){const q=normalizeMemberName(value);const list=(window._pickMembers||[]).filter(m=>!q||normalizeMemberName(m.name).includes(q));renderPickGrid(list);};
 
 // ── Record ─────────────────────────────────────────────────
 window.goRecord=async function(mid){
   curMid=mid;const members=await loadMembers();const m=members.find(x=>x.id===mid);if(!m)return;
+  writeJSON(STORE.member,{id:m.id,name:m.name,cls:m.cls});
   const allPts=await getPtsMap();const rPts=allPts[mid]||0;
   document.getElementById('rec-av').className=`sel-av-lg ${m.cls}`;
   document.getElementById('rec-av').textContent=m.name.slice(0,1);
   document.getElementById('rec-name').textContent=m.name;
   document.getElementById('rec-clsname').textContent=CLS_N[m.cls];
   document.getElementById('rec-pts').textContent=rPts+' 分';
-  document.getElementById('rec-passage-input').value='';
   document.getElementById('rec-back-btn').onclick=()=>window.goClass(m.cls);
   const today=todayK();
   const rs=await getDocs(collection(db,'records'));
-  const done=rs.docs.some(d=>{const r=d.data();return r.mid===mid&&r.date===today&&r.type!=='adjust';});
+  const todayRec=rs.docs.map(d=>d.data()).find(r=>r.mid===mid&&r.date===today&&r.type!=='adjust');
+  const done=!!todayRec;
+  document.getElementById('rec-passage-input').value=done?(todayRec.passages||''):readStore(STORE.lastPassage);
   const btn=document.getElementById('rec-submit');
   btn.className=done?'btn btn-done':'btn btn-blue';
   btn.textContent=done?'今日已完成讀經 ✓':'完成讀經，獲得 +5 分';btn.disabled=!!done;
@@ -900,18 +1054,36 @@ window.submitRecord=async function(){
     const today=todayK();
     const rs=await getDocs(collection(db,'records'));
     if(rs.docs.some(d=>{const r=d.data();return r.mid===curMid&&r.date===today;})){toast('今日已完成！');btn.className='btn btn-done';btn.textContent='今日已完成讀經 ✓';return;}
-    await addDoc(collection(db,'records'),{mid:curMid,date:today,passages,pts:5});
-    await addToMonthSnap(curMid,5);await updateMember(curMid,{pts:(m.pts||0)+5});
+    const recRef=doc(db,'records',stableDocId('child',curMid,today));
+    const memberRef=doc(db,'members',curMid);const monthRef=doc(db,'monthlySnap',monthKey());
+    const created=await runTransaction(db,async tx=>{
+      const recSnap=await tx.get(recRef);const memberSnap=await tx.get(memberRef);const monthSnap=await tx.get(monthRef);
+      if(recSnap.exists())return false;
+      if(!memberSnap.exists())throw new Error('找不到學員');
+      const memberData=memberSnap.data();const monthData=monthSnap.exists()?monthSnap.data():{};const pts={...(monthData.pts||{})};
+      pts[curMid]=(pts[curMid]||0)+5;
+      tx.set(recRef,{mid:curMid,date:today,passages,pts:5,createdAt:new Date().toISOString()});
+      tx.update(memberRef,{pts:Math.max(0,(memberData.pts||0)+5)});
+      tx.set(monthRef,{...monthData,pts});
+      return true;
+    });
+    if(!created){toast('今日已完成！');btn.className='btn btn-done';btn.textContent='今日已完成讀經 ✓';return;}
+    writeStore(STORE.lastPassage,passages);invalidateCache();await loadMembers(true);
     const allPts=await getPtsMap();
     document.getElementById('rec-pts').textContent=(allPts[curMid]||0)+' 分';
     btn.className='btn btn-done';btn.textContent='今日已完成讀經 ✓';
-    await renderRecHistory(curMid);toast('太棒了！'+m.name+' 獲得 +5 分！');
+    await renderRecHistory(curMid);
+    if(window._todayDoneMids)window._todayDoneMids.add(curMid);
+    const updatedRecs=rs.docs.map(d=>d.data()).filter(r=>r.type!=='adjust').concat([{mid:curMid,date:today,passages,pts:5}]);
+    const week=getWeekRange();const weekDays=new Set(updatedRecs.filter(r=>r.mid===curMid&&dateInRange(r.date,week.start,week.end)).map(r=>r.date)).size;
+    const streak=calcStreak(curMid,updatedRecs,[]);const memberId=curMid;
+    window.showCheckinSuccess({title:'今天讀經完成！',sub:m.name+' 做得很好，明天也一起繼續。',passage:passages,progress:'本週 '+weekDays+'/7 天・連續 '+streak+' 天',secondaryLabel:'查看個人紀錄',secondaryAction:()=>window.goRecord(memberId)});
   }catch(err){toast('送出失敗，請再試');btn.disabled=false;btn.className='btn btn-blue';btn.textContent='完成讀經，獲得 +5 分';}
 };
 
 // ── Parent ─────────────────────────────────────────────────
 window.goParent=async function(){
-  parSelMid=null;parSelCls=null;
+  const saved=readJSON(STORE.parentChild);parSelMid=saved&&saved.id||null;parSelCls=saved&&saved.cls||null;
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
   document.getElementById('nav-parent').classList.add('active');
   showPage('pg-parent');
@@ -919,10 +1091,15 @@ window.goParent=async function(){
 async function renderParentPage(){
   const btn=document.getElementById('par-submit');btn.className='btn btn-gold';btn.textContent='送出，加分給選取的孩子';btn.disabled=false;
   document.getElementById('par-confirm-banner').style.display='none';
-  document.getElementById('par-name').value='';document.getElementById('par-passage-input').value='';
-  document.getElementById('par-seg-big').classList.add('on');document.getElementById('par-seg-small').classList.remove('on');
-  document.getElementById('par-big-sec').style.display='block';document.getElementById('par-small-sec').style.display='none';
-  await renderParGrid('big');await renderParGrid('small');await renderParHistory();
+  document.getElementById('par-picker-controls').style.display='block';document.getElementById('par-change-btn').style.display='none';
+  document.getElementById('par-name').value=readStore(STORE.parentName);document.getElementById('par-passage-input').value=readStore(STORE.parentLastPassage);
+  const startCls=parSelCls||'big';
+  document.getElementById('par-seg-big').classList.toggle('on',startCls==='big');document.getElementById('par-seg-small').classList.toggle('on',startCls==='small');
+  document.getElementById('par-big-sec').style.display=startCls==='big'?'block':'none';document.getElementById('par-small-sec').style.display=startCls==='small'?'block':'none';
+  await renderParGrid('big');await renderParGrid('small');
+  const members=await loadMembers();const remembered=parSelMid&&members.find(m=>m.id===parSelMid);
+  if(remembered){const pts=(await getPtsMap())[remembered.id]||0;window.selectParMember(remembered.id,remembered.cls,remembered.name,pts);window.parSwitchCls(remembered.cls);}
+  await renderParHistory();
 }
 async function renderParGrid(cls){
   const members=await loadMembers();const allPts=await getPtsMap();
@@ -948,7 +1125,9 @@ window.selectParMember=function(mid,cls,name,pts){
   document.getElementById('par-mbr-'+mid).classList.add('sel');
   const b=document.getElementById('par-confirm-banner');b.style.display='block';
   b.textContent='已選取：'+CLS_N[cls]+' '+name+'（目前 '+pts+' 分）';
+  document.getElementById('par-picker-controls').style.display='none';document.getElementById('par-change-btn').style.display='block';
 };
+window.showParentPicker=function(){document.getElementById('par-picker-controls').style.display='block';document.getElementById('par-change-btn').style.display='none';document.getElementById('par-confirm-banner').style.display='none';};
 async function renderParHistory(){
   const s=await getDocs(collection(db,'parRecords'));
   const recs=s.docs.map(d=>d.data()).sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,8);
@@ -960,7 +1139,7 @@ window.submitParent=async function(){
   const btn=document.getElementById('par-submit');if(btn.disabled)return;
   btn.disabled=true;btn.textContent='送出中…';
   try{
-    const name=document.getElementById('par-name').value.trim();
+    const name=normalizeMemberName(document.getElementById('par-name').value);
     if(!name){toast('請填入家長姓名');btn.disabled=false;btn.textContent='送出，加分給選取的孩子';return;}
     const passages=document.getElementById('par-passage-input').value.trim();
     if(!passages){toast('請填寫今日讀經內容');btn.disabled=false;btn.textContent='送出，加分給選取的孩子';return;}
@@ -971,16 +1150,30 @@ window.submitParent=async function(){
     const today=todayK();
     const ps=await getDocs(collection(db,'parRecords'));
     const todayRecs=ps.docs.map(d=>d.data()).filter(r=>r.date===today);
-    if(todayRecs.some(r=>r.parentName===name)){
+    if(todayRecs.some(r=>normalizeMemberName(r.parentName)===name)){
       toast(name+' 今天已填寫過了，每位家長每天限一次');btn.disabled=false;btn.textContent='送出，加分給選取的孩子';return;
     }
-    await addDoc(collection(db,'parRecords'),{date:today,parentName:name,awardMid:parSelMid,awardName:m.name,awardCls:parSelCls,passages,pts:5});
-    await addToMonthSnap(parSelMid,5);await updateMember(parSelMid,{pts:(m.pts||0)+5});
+    const recRef=doc(db,'parRecords',stableDocId('parent',name,today));
+    const memberRef=doc(db,'members',parSelMid);const monthRef=doc(db,'monthlySnap',monthKey());
+    const created=await runTransaction(db,async tx=>{
+      const recSnap=await tx.get(recRef);const memberSnap=await tx.get(memberRef);const monthSnap=await tx.get(monthRef);
+      if(recSnap.exists())return false;
+      if(!memberSnap.exists())throw new Error('找不到學員');
+      const memberData=memberSnap.data();const monthData=monthSnap.exists()?monthSnap.data():{};const pts={...(monthData.pts||{})};
+      pts[parSelMid]=(pts[parSelMid]||0)+5;
+      tx.set(recRef,{date:today,parentName:name,awardMid:parSelMid,awardName:m.name,awardCls:parSelCls,passages,pts:5,createdAt:new Date().toISOString()});
+      tx.update(memberRef,{pts:Math.max(0,(memberData.pts||0)+5)});
+      tx.set(monthRef,{...monthData,pts});
+      return true;
+    });
+    if(!created){toast(name+' 今天已填寫過了');btn.disabled=false;btn.textContent='送出，加分給選取的孩子';return;}
+    writeStore(STORE.parentName,name);writeStore(STORE.parentLastPassage,passages);writeJSON(STORE.parentChild,{id:m.id,name:m.name,cls:m.cls});
+    invalidateCache();await loadMembers(true);
     const allPts=await getPtsMap();const newPts=allPts[parSelMid]||0;
     const b=document.getElementById('par-confirm-banner');b.style.display='block';b.textContent=m.name+' 已獲得 +5 分！目前 '+newPts+' 分';
     btn.className='btn btn-done';btn.textContent='已送出 ✓';
     await renderParGrid('big');await renderParGrid('small');await renderParHistory();
-    toast(name+' 讀經完成，'+m.name+' 獲得 +5 分！');
+    window.showCheckinSuccess({title:'家長讀經完成！',sub:name+' 已完成今天的讀經，'+m.name+' 獲得 +5 分。',passage:passages,secondaryLabel:'查看家長紀錄',secondaryAction:()=>window.goParent()});
   }catch(err){toast('送出失敗，請再試');btn.disabled=false;btn.className='btn btn-gold';btn.textContent='送出，加分給選取的孩子';}
 };
 
@@ -996,8 +1189,7 @@ window.toggleEye=function(inputId,btn){
 window.goAdminLogin=function(){
   if(adminIn){
     document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
-    document.getElementById('nav-admin').classList.add('active');
-    showPage('pg-admin');return;
+    showPage('pg-admin');document.getElementById('bottom-nav').style.display='none';return;
   }
   document.getElementById('pw-input').value='';
   document.getElementById('pw-err').style.display='none';
@@ -1009,8 +1201,8 @@ window.doLogin=async function(){
   if(document.getElementById('pw-input').value===(cfg.pw||'admin1234')){
     adminIn=true;
     document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
-    document.getElementById('nav-admin').classList.add('active');
     showPage('pg-admin');
+    document.getElementById('bottom-nav').style.display='none';
   }else{document.getElementById('pw-err').style.display='block';}
 };
 window.adminLogout=function(){adminIn=false;navTo('home');};
@@ -1162,8 +1354,7 @@ window.admImport=async function(){
   const skip=names.length-toAdd.length;
   if(toAdd.length===0){toast('全部 '+skip+' 筆重複或已存在，略過');return;}
   if(!confirm(`確認匯入 ${CLS_N[cls]}：\n新增 ${toAdd.length} 位、略過 ${skip} 筆重複或已存在\n\n${toAdd.join('、')}\n\n確定執行？`))return;
-  let created=0;
-  for(const name of toAdd){const result=await saveMember({name,cls,pts:0});if(result.created)created++;}
+  let created=0;for(const name of toAdd){const result=await saveMember({name,cls,pts:0});if(result.created)created++;}
   document.getElementById('imp-text').value='';
   invalidateCache();await loadMembers(true);
   toast('已匯入 '+created+' 位，略過 '+(names.length-created)+' 筆');
@@ -1316,11 +1507,11 @@ window.renderBackup=async function(){
 window.exportCSV=function(){const rows=window._bkRows;if(!rows||!rows.length){toast('無資料');return;}const cm={big:'大班',small:'小班',parent:'家長班'};const csv=[['日期','類型','班別','姓名','加分對象','讀經段落','分數'].join(','),...rows.map(r=>[r.date,r.type,cm[r.cls]||r.cls,r.name,r.target,'"'+r.passages.replace(/"/g,'""')+'"',r.pts].join(','))];const blob=new Blob(['\uFEFF'+csv.join('\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`點石成金_紀錄_${document.getElementById('bk-from').value||'all'}.csv`;a.click();URL.revokeObjectURL(url);toast('CSV 已下載！');};
 window.exportJSON=function(){const rows=window._bkRows;if(!rows||!rows.length){toast('無資料');return;}const blob=new Blob([JSON.stringify(rows,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`點石成金_紀錄_${document.getElementById('bk-from').value||'all'}.json`;a.click();URL.revokeObjectURL(url);toast('JSON 已下載！');};
 
-// 學員只能由後台新增或匯入；公開頁面載入時不得自動寫入資料。
+// 更新版 v1：學員只能由後台新增或匯入，公開頁面不再自動建立資料。
 renderHome();
 window.renderWeeklyPreview=renderWeeklyPreview;
 window.renderAdmMembers=window.renderAdmMembers;
-// v20260713-duplicate-member-fix
+// update-v1.1-20260714
 </script>
 <script>
 if('serviceWorker' in navigator){

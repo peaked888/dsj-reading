@@ -1,5 +1,5 @@
-// v20260713 - 學員重複修正版，強制淘汰所有舊版快取
-const CACHE = 'dsj-v20260713-duplicate-member-fix';
+// update-v1.1-20260714 - UI 優化版，強制淘汰舊快取
+const CACHE = 'dsj-update-v1.1-20260714';
 
 self.addEventListener('install', e => {
   self.skipWaiting();
