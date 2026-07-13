@@ -1,5 +1,5 @@
-// v20260426 - 強制清除所有快取
-const CACHE = 'dsj-v20260426';
+// v20260713 - 學員重複修正版，強制淘汰所有舊版快取
+const CACHE = 'dsj-v20260713-duplicate-member-fix';
 
 self.addEventListener('install', e => {
   self.skipWaiting();

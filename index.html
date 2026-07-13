@@ -598,7 +598,25 @@ async function calcAllPtsFromRecords(){
   ps.docs.forEach(d=>{const r=d.data();pts[r.awardMid]=(pts[r.awardMid]||0)+(r.pts||5);});
   Object.keys(pts).forEach(k=>{if(pts[k]<0)pts[k]=0;});return pts;
 }
-async function saveMember(data){return(await addDoc(collection(db,'members'),data)).id;}
+function normalizeMemberName(name){return String(name||'').normalize('NFKC').replace(/\s+/g,' ').trim();}
+function memberDocId(cls,name){return'v1__'+encodeURIComponent(cls+'|'+normalizeMemberName(name));}
+async function saveMember(data){
+  const name=normalizeMemberName(data.name);
+  if(!name)throw new Error('學員姓名不可為空');
+
+  // 先相容既有的隨機文件 ID；相同班別、標準化後同名就不再新增。
+  const current=await getDocs(collection(db,'members'));
+  const existing=current.docs.find(d=>{
+    const m=d.data();
+    return m.cls===data.cls&&normalizeMemberName(m.name)===name;
+  });
+  if(existing)return{id:existing.id,created:false};
+
+  // 新資料改用固定文件 ID。多個裝置同時新增時會寫入同一筆，而不是產生多筆。
+  const id=memberDocId(data.cls,name);
+  await setDoc(doc(db,'members',id),{...data,name});
+  return{id,created:true};
+}
 async function updateMember(id,data){
   await updateDoc(doc(db,'members',id),data);
   const m=_mc.find(x=>x.id===id);if(m){Object.assign(m,data);_ptsc=null;}
@@ -1116,15 +1134,16 @@ window.admMakeup=async function(){
 };
 
 window.admAddMember=async function(){
-  const name=document.getElementById('adm-new-name').value.trim();
+  const name=normalizeMemberName(document.getElementById('adm-new-name').value);
   const cls=document.getElementById('adm-cls-sel').value;
   if(!name){toast('請輸入姓名');return;}
   // 防重複：檢查同班是否已有同名學員
-  const members=await loadMembers();
-  if(members.some(m=>m.cls===cls&&m.name===name)){
+  const members=await loadMembers(true);
+  if(members.some(m=>m.cls===cls&&normalizeMemberName(m.name)===name)){
     toast(CLS_N[cls]+'已有「'+name+'」，請勿重複新增');return;
   }
-  await saveMember({name,cls,pts:0});
+  const result=await saveMember({name,cls,pts:0});
+  if(!result.created){toast(CLS_N[cls]+'已有「'+name+'」，請勿重複新增');return;}
   invalidateCache();
   document.getElementById('adm-new-name').value='';
   toast('已新增 '+name);
@@ -1134,18 +1153,20 @@ window.admAddMember=async function(){
 window.admImport=async function(){
   const cls=document.getElementById('imp-cls').value;
   const raw=document.getElementById('imp-text').value;
-  const names=raw.split(/[\n,，\s]+/).map(n=>n.trim()).filter(n=>n);
+  const names=raw.split(/[\n,，\s]+/).map(normalizeMemberName).filter(Boolean);
   if(!names.length){toast('請輸入姓名');return;}
-  const members=await loadMembers();
-  const exist=new Set(members.filter(m=>m.cls===cls).map(m=>m.name));
-  const toAdd=names.filter(n=>!exist.has(n));
+  const uniqueNames=[...new Set(names)];
+  const members=await loadMembers(true);
+  const exist=new Set(members.filter(m=>m.cls===cls).map(m=>normalizeMemberName(m.name)));
+  const toAdd=uniqueNames.filter(n=>!exist.has(n));
   const skip=names.length-toAdd.length;
-  if(toAdd.length===0){toast('全部 '+skip+' 位已存在，略過');return;}
-  if(!confirm(`確認匯入 ${CLS_N[cls]}：\n新增 ${toAdd.length} 位、略過 ${skip} 位已存在\n\n${toAdd.join('、')}\n\n確定執行？`))return;
-  for(const name of toAdd){await saveMember({name,cls,pts:0});}
+  if(toAdd.length===0){toast('全部 '+skip+' 筆重複或已存在，略過');return;}
+  if(!confirm(`確認匯入 ${CLS_N[cls]}：\n新增 ${toAdd.length} 位、略過 ${skip} 筆重複或已存在\n\n${toAdd.join('、')}\n\n確定執行？`))return;
+  let created=0;
+  for(const name of toAdd){const result=await saveMember({name,cls,pts:0});if(result.created)created++;}
   document.getElementById('imp-text').value='';
   invalidateCache();await loadMembers(true);
-  toast('已匯入 '+toAdd.length+' 位，略過 '+skip+' 位');
+  toast('已匯入 '+created+' 位，略過 '+(names.length-created)+' 筆');
   await window.renderAdmMembers();
 };
 window.changePw=async function(){const p1=document.getElementById('new-pw1').value;const p2=document.getElementById('new-pw2').value;if(!p1){toast('請輸入新密碼');return;}if(p1!==p2){toast('兩次密碼不一致');return;}if(p1.length<4){toast('密碼至少4位');return;}await setConfig({pw:p1});document.getElementById('new-pw1').value='';document.getElementById('new-pw2').value='';toast('密碼已更新');};
@@ -1295,25 +1316,11 @@ window.renderBackup=async function(){
 window.exportCSV=function(){const rows=window._bkRows;if(!rows||!rows.length){toast('無資料');return;}const cm={big:'大班',small:'小班',parent:'家長班'};const csv=[['日期','類型','班別','姓名','加分對象','讀經段落','分數'].join(','),...rows.map(r=>[r.date,r.type,cm[r.cls]||r.cls,r.name,r.target,'"'+r.passages.replace(/"/g,'""')+'"',r.pts].join(','))];const blob=new Blob(['\uFEFF'+csv.join('\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`點石成金_紀錄_${document.getElementById('bk-from').value||'all'}.csv`;a.click();URL.revokeObjectURL(url);toast('CSV 已下載！');};
 window.exportJSON=function(){const rows=window._bkRows;if(!rows||!rows.length){toast('無資料');return;}const blob=new Blob([JSON.stringify(rows,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`點石成金_紀錄_${document.getElementById('bk-from').value||'all'}.json`;a.click();URL.revokeObjectURL(url);toast('JSON 已下載！');};
 
-// ── Seed ───────────────────────────────────────────────────
-async function seedIfEmpty(){
-  const s=await getDocs(collection(db,'members'));
-  // 三層防護：
-  // 1. 超過10人絕對不執行（正常使用後不可能回到0人）
-  if(s.size>=10)return;
-  // 2. 有任何學員就跳過
-  if(s.size>0)return;
-  // 3. Double-check：再讀一次確認真的是0人（防止網路延遲誤判）
-  const s2=await getDocs(collection(db,'members'));
-  if(s2.size>0)return;
-  const SEED=[['big','林宜萱'],['big','李映瑩'],['big','林辰宣'],['big','趙于瑩'],['big','黃詩芸'],['big','范嘉琳'],['big','黃梓昕'],['big','廖述正'],['big','陳映辰'],['big','賴宥丞'],['big','洪勤訸'],['big','黃詩媛'],['big','黃詩祐'],['big','曾宥銓'],['big','蕭孟哲'],['big','廖語晨'],['big','吳仲碩'],['big','江育葳'],['big','周朋諺'],['big','黃梓燁'],['big','陳翊綾'],['big','林沛甯'],['big','張心瑀'],['big','吳品澔'],['big','沈浿庭'],['big','魏以勒'],['big','洪鈺庭'],['big','洪鈺家'],['big','紀語柔'],['big','紀語宸'],['big','廖宣昀'],['big','劉映彣'],['small','賴宥銘'],['small','張雅筑'],['small','劉宸靜'],['small','黃宥妘'],['small','廖姵晨'],['small','李禹晴'],['small','李禹暘'],['small','黃宥妡'],['small','陳旻柔'],['small','林可晨'],['small','顏寧萱'],['small','鄞瑜萱'],['small','林宥彤'],['small','賴宥維'],['small','温梓余'],['small','蕭宥歆'],['small','許惟甯'],['small','陳柏勛'],['small','温俞甯'],['small','林善甯'],['small','李恩奎'],['small','張丞汛'],['small','洪品睿'],['small','葉依昀'],['small','林歆芮'],['small','林震珅'],['small','陳亮澄']];
-  toast('首次啟動，初始化學員…');for(const[cls,name]of SEED)await saveMember({name,cls,pts:0});toast('初始化完成！');
-}
-
-await seedIfEmpty();renderHome();
+// 學員只能由後台新增或匯入；公開頁面載入時不得自動寫入資料。
+renderHome();
 window.renderWeeklyPreview=renderWeeklyPreview;
 window.renderAdmMembers=window.renderAdmMembers;
-// v20260426-2
+// v20260713-duplicate-member-fix
 </script>
 <script>
 if('serviceWorker' in navigator){
