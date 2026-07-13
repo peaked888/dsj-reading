@@ -1,5 +1,5 @@
-// update-v1.1-20260714 - UI 優化版，強制淘汰舊快取
-const CACHE = 'dsj-update-v1.1-20260714';
+// update-v1.1-20260714-range-time - 區間積分與秒級備份，強制淘汰舊快取
+const CACHE = 'dsj-update-v1.1-20260714-range-time';
 
 self.addEventListener('install', e => {
   self.skipWaiting();

@@ -60,7 +60,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
 .section-label{font-size:12px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;padding:0 4px}
 
 /* ── CLASS CARDS ── */
-.class-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
+.class-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
 .cls-card{background:#fff;border-radius:var(--radius-lg);padding:16px 8px 14px;text-align:center;cursor:pointer;box-shadow:var(--shadow);transition:box-shadow .15s,transform .12s;-webkit-user-select:none}
 .cls-card:active{transform:scale(.95);box-shadow:none}
 .cls-icon{width:48px;height:48px;border-radius:14px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff}
@@ -173,6 +173,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
 .daily-action{border:none;border-radius:14px;padding:13px 10px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;background:#fff;color:var(--blue)}
 .daily-action.parent{background:var(--gold);color:#fff}
 .daily-action:active{transform:scale(.97)}
+.announcement-bar{display:none;align-items:center;gap:10px;background:#fff;border:1px solid #D7E3FC;border-radius:14px;padding:11px 12px;margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden;color:var(--blue)}
+.announcement-bar.show{display:flex}.announcement-icon{width:28px;height:28px;border-radius:50%;background:var(--blue-lt);display:flex;align-items:center;justify-content:center;flex:0 0 28px;font-size:14px}
+.announcement-viewport{flex:1;min-width:0;overflow:hidden;white-space:nowrap}.announcement-text{display:inline-block;min-width:100%;padding-left:100%;font-size:14px;font-weight:700;color:var(--t1);animation:announcement-marquee 14s linear infinite;will-change:transform}
+@keyframes announcement-marquee{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+@media (prefers-reduced-motion:reduce){.announcement-text{animation:none;padding-left:0;white-space:normal}}
+.announcement-counter{font-size:12px;color:var(--t2);text-align:right;margin:-4px 2px 12px}
+.home-more{background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden}
+.home-more summary{list-style:none;cursor:pointer;padding:16px 18px;color:var(--blue);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:space-between}
+.home-more summary::-webkit-details-marker{display:none}.home-more summary::after{content:'＋';font-size:22px;font-weight:400;line-height:1}.home-more[open] summary::after{content:'－'}
+.home-more[open] summary{border-bottom:1px solid var(--sep)}.home-more-body{padding:2px 16px 16px}
+.range-summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.range-stat{background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:15px}.range-stat-n{font-size:22px;font-weight:800;color:var(--blue)}.range-stat-l{font-size:12px;color:var(--t2);margin-top:3px}
 .remember-card{display:none;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:16px;margin-bottom:18px}
 .remember-top{display:flex;align-items:center;gap:12px}
 .remember-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;font-weight:700;flex-shrink:0}
@@ -194,21 +205,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
 .pick-search{width:100%;border:1px solid var(--sep);background:#fff;border-radius:13px;padding:12px 14px;font-family:inherit;font-size:15px;font-weight:500;outline:none;margin-bottom:14px;box-shadow:var(--shadow)}
 .pick-search:focus{border-color:var(--blue)}
 .cls-card{border:none;font-family:inherit;width:100%}
-.mbr-status-done{color:var(--green);font-weight:700}.mbr-status-wait{color:var(--t3)}
-.remember-switch{border:none;background:none;color:var(--t2);font-family:inherit;font-size:12px;font-weight:600;padding:8px 4px 0;cursor:pointer;width:100%}
-.home-more{background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
-.home-more>summary{list-style:none;cursor:pointer;padding:15px 16px;font-size:14px;font-weight:700;color:var(--blue);display:flex;align-items:center;justify-content:space-between}
-.home-more>summary::-webkit-details-marker{display:none}.home-more>summary::after{content:'＋';font-size:18px}.home-more[open]>summary::after{content:'－'}
-.home-more-body{padding:0 14px 4px;border-top:1px solid var(--sep)}
-.admin-entry{display:block;margin:6px auto 0;border:none;background:none;color:var(--t3);font-family:inherit;font-size:12px;font-weight:600;padding:12px;cursor:pointer}
-.parent-change{display:none;width:100%;border:1px solid rgba(249,171,0,.35);background:#fff;color:#7A5000;border-radius:10px;padding:10px;font-family:inherit;font-size:13px;font-weight:700;margin-top:10px;cursor:pointer}
-.success-page{justify-content:center;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 36px) 24px calc(env(safe-area-inset-bottom,0px) + 30px);text-align:center;background:linear-gradient(180deg,#F4F8FF 0%,#fff 58%)}
-.success-icon{width:92px;height:92px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:700;box-shadow:0 12px 30px rgba(52,168,83,.25);margin-bottom:24px;animation:success-pop .36s ease-out}
-@keyframes success-pop{from{transform:scale(.65);opacity:0}to{transform:scale(1);opacity:1}}
-.success-title{font-size:26px;font-weight:800;margin-bottom:8px}.success-sub{font-size:15px;color:var(--t2);line-height:1.6;margin-bottom:22px}
-.success-card{width:100%;background:#fff;border-radius:18px;box-shadow:var(--shadow-md);padding:18px;margin-bottom:22px;text-align:left}
-.success-row{display:flex;justify-content:space-between;gap:14px;padding:8px 0;font-size:14px}.success-row+.success-row{border-top:1px solid var(--sep)}
-.success-label{color:var(--t2)}.success-value{font-weight:700;text-align:right;word-break:break-word}.success-actions{width:100%;display:grid;gap:10px}
 
 /* ── AWARD BOX ── */
 .award-box{background:var(--gold-lt);border-radius:var(--radius-lg);padding:16px;margin-bottom:14px;border:1px solid rgba(249,171,0,.20)}
@@ -294,6 +290,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
     </div>
   </div>
   <div class="scroll-body">
+    <div class="announcement-bar" id="home-announcement" role="status" aria-live="polite"><div class="announcement-icon" aria-hidden="true">📣</div><div class="announcement-viewport"><span class="announcement-text" id="home-announcement-text"></span></div></div>
     <div class="daily-hero">
       <div class="daily-eyebrow">每日讀經打卡</div>
       <div class="daily-title">今天也一起讀經吧</div>
@@ -311,7 +308,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
         <div class="remember-state" id="remember-state"></div>
       </div>
       <button class="remember-btn" id="remember-btn" onclick="continueRememberedMember()">繼續打卡</button>
-      <button class="remember-switch" onclick="forgetRememberedMember()">切換其他孩子</button>
     </div>
 
     <div class="section-label">今日完成情況</div>
@@ -332,6 +328,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
         <div class="cls-name">小班</div>
         <div class="cls-count" id="cnt-small">— 位</div>
       </button>
+      <button type="button" class="cls-card cls-parent" onclick="goParent()">
+        <div class="cls-icon">家</div>
+        <div class="cls-name">家長班</div>
+        <div class="cls-count">讀經加分</div>
+      </button>
     </div>
 
     <details class="home-more">
@@ -348,7 +349,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
         <div class="card" id="home-monthly"><div class="loading-view">載入中…</div></div>
       </div>
     </details>
-    <button class="admin-entry" onclick="goAdminLogin()">管理員入口</button>
   </div>
 </div>
 
@@ -419,37 +419,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
     <div class="section-label">選擇加分孩子</div>
     <div class="award-box">
       <div class="award-title">讀經後幫孩子加 5 分，請選擇班別與學員</div>
-      <div id="par-picker-controls">
-        <div class="seg" style="margin-bottom:14px">
-          <button class="seg-btn on" id="par-seg-big" onclick="parSwitchCls('big')">大班</button>
-          <button class="seg-btn" id="par-seg-small" onclick="parSwitchCls('small')">小班</button>
-        </div>
-        <div id="par-big-sec"><div class="mbr-grid" id="par-big-grid"></div></div>
-        <div id="par-small-sec" style="display:none"><div class="mbr-grid" id="par-small-grid"></div></div>
+      <div class="seg" style="margin-bottom:14px">
+        <button class="seg-btn on" id="par-seg-big" onclick="parSwitchCls('big')">大班</button>
+        <button class="seg-btn" id="par-seg-small" onclick="parSwitchCls('small')">小班</button>
       </div>
+      <div id="par-big-sec"><div class="mbr-grid" id="par-big-grid"></div></div>
+      <div id="par-small-sec" style="display:none"><div class="mbr-grid" id="par-small-grid"></div></div>
       <div class="award-confirm" id="par-confirm-banner"></div>
-      <button class="parent-change" id="par-change-btn" onclick="showParentPicker()">更換孩子</button>
     </div>
     <button class="btn btn-gold" id="par-submit" onclick="submitParent()" style="margin-bottom:24px">送出，加分給選取的孩子</button>
 
     <div class="section-label">家長班紀錄</div>
     <div class="card" id="par-history"><div class="loading-view">載入中…</div></div>
-  </div>
-</div>
-
-<!-- ════ CHECK-IN SUCCESS ════ -->
-<div class="page success-page" id="pg-success">
-  <div class="success-icon">✓</div>
-  <div class="success-title" id="success-title">今天讀經完成！</div>
-  <div class="success-sub" id="success-sub">做得很好，明天也一起繼續。</div>
-  <div class="success-card">
-    <div class="success-row"><span class="success-label">讀經內容</span><span class="success-value" id="success-passage"></span></div>
-    <div class="success-row"><span class="success-label">本次獎勵</span><span class="success-value" id="success-points">+5 分</span></div>
-    <div class="success-row" id="success-progress-row"><span class="success-label">本週進度</span><span class="success-value" id="success-progress"></span></div>
-  </div>
-  <div class="success-actions">
-    <button class="btn btn-blue" onclick="navTo('home')">回到首頁</button>
-    <button class="btn btn-ghost" id="success-secondary">查看紀錄</button>
   </div>
 </div>
 
@@ -492,6 +473,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
   </div>
   <div class="admin-tabs">
     <button class="admin-tab on" id="atab-rank" onclick="switchAdmTab('rank')">排行榜</button>
+    <button class="admin-tab" id="atab-range" onclick="switchAdmTab('range')">區間積分</button>
+    <button class="admin-tab" id="atab-announcement" onclick="switchAdmTab('announcement')">公告</button>
     <button class="admin-tab" id="atab-members" onclick="switchAdmTab('members')">學員</button>
     <button class="admin-tab" id="atab-import" onclick="switchAdmTab('import')">匯入</button>
     <button class="admin-tab" id="atab-parlog" onclick="switchAdmTab('parlog')">家長紀錄</button>
@@ -503,6 +486,38 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
 
     <div class="admin-panel on" id="apanel-rank">
       <div class="card" id="adm-rank-list"><div class="loading-view">載入中…</div></div>
+    </div>
+
+    <div class="admin-panel" id="apanel-range">
+      <div class="panel-body">
+        <div class="section-label">指定日期區間累積分數</div>
+        <div class="form-card" style="margin-bottom:12px">
+          <div class="form-row"><label>班別</label><select id="range-cls"><option value="all">全部</option><option value="big">大班</option><option value="small">小班</option></select></div>
+          <div class="form-row"><label>開始日期</label><input type="date" id="range-from"/></div>
+          <div class="form-row"><label>結束日期</label><input type="date" id="range-to"/></div>
+        </div>
+        <button class="btn btn-blue" onclick="renderRangeScores()" style="margin-bottom:14px">查詢累積分數</button>
+        <div class="range-summary">
+          <div class="range-stat"><div class="range-stat-n" id="range-total-pts">—</div><div class="range-stat-l">區間總分</div></div>
+          <div class="range-stat"><div class="range-stat-n" id="range-active-count">—</div><div class="range-stat-l">有得分學員</div></div>
+        </div>
+        <div class="card" id="range-score-list"><div class="empty-view">請選擇日期後查詢</div></div>
+        <div class="section-footer">包含孩子讀經、家長加分、後台補登與管理員加減分；依每筆紀錄的讀經日期統計。</div>
+      </div>
+    </div>
+
+    <div class="admin-panel" id="apanel-announcement">
+      <div class="panel-body">
+        <div class="section-label">首頁跑馬燈公告</div>
+        <div class="form-card" style="margin-bottom:8px">
+          <div class="form-row"><label>顯示狀態</label><select id="announcement-enabled" onchange="updateAnnouncementPreview()"><option value="true">開啟公告</option><option value="false">暫停顯示</option></select></div>
+          <div class="form-row" style="align-items:flex-start"><label style="padding-top:14px">公告內容</label><textarea id="announcement-input" maxlength="120" rows="4" placeholder="輸入首頁公告" oninput="updateAnnouncementPreview()"></textarea></div>
+        </div>
+        <div class="announcement-counter" id="announcement-counter">0 / 120</div>
+        <button class="btn btn-blue" id="announcement-save" onclick="saveAnnouncement()">儲存並同步公告</button>
+        <div class="section-label" style="margin-top:20px">首頁預覽</div>
+        <div class="announcement-bar show" id="announcement-preview"><div class="announcement-icon" aria-hidden="true">📣</div><div class="announcement-viewport"><span class="announcement-text" id="announcement-preview-text">公告內容會顯示在這裡</span></div></div>
+      </div>
     </div>
 
     <div class="admin-panel" id="apanel-members">
@@ -627,17 +642,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft Jheng
     <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><polyline points="9,21 9,12 15,12 15,21"/></svg>
     <span>首頁</span>
   </button>
-  <button class="nav-item" id="nav-checkin" onclick="navTo('checkin')">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg>
-    <span>孩子打卡</span>
-  </button>
-  <button class="nav-item" id="nav-parent" onclick="navTo('parent')">
-    <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><circle cx="16" cy="8" r="2"/><path d="M2 21v-1a7 7 0 0114 0v1"/><path d="M16 13a5 5 0 015 5v3"/></svg>
-    <span>家長打卡</span>
-  </button>
   <button class="nav-item" id="nav-weekly" onclick="navTo('weekly')">
     <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8" y2="14" stroke-width="3" stroke-linecap="round"/><line x1="12" y1="14" x2="12" y2="14" stroke-width="3" stroke-linecap="round"/><line x1="16" y1="14" x2="16" y2="14" stroke-width="3" stroke-linecap="round"/><line x1="8" y1="18" x2="8" y2="18" stroke-width="3" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="18" stroke-width="3" stroke-linecap="round"/></svg>
     <span>週報</span>
+  </button>
+  <button class="nav-item" id="nav-parent" onclick="navTo('parent')">
+    <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><circle cx="16" cy="8" r="2"/><path d="M2 21v-1a7 7 0 0114 0v1"/><path d="M16 13a5 5 0 015 5v3"/></svg>
+    <span>家長班</span>
+  </button>
+  <button class="nav-item" id="nav-admin" onclick="navTo('admin')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M12 14c-6 0-8 2.686-8 4v1h16v-1c0-1.314-2-4-8-4z"/><path d="M17 3l1.5 1.5L17 6M19 1l-2 2 2 2"/></svg>
+    <span>後台</span>
   </button>
 </nav>
 
@@ -679,13 +694,18 @@ const todayK=()=>localDK();
 const fmtD=k=>k?k.replace(/-/g,'/'):'-';
 const fmtFull=d=>localDK(d).replace(/-/g,'/');
 const monthKey=(d)=>{d=d||new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;};
+function fmtDateTime(iso){
+  if(!iso)return'舊資料未記錄時間';
+  const d=new Date(iso);if(Number.isNaN(d.getTime()))return'舊資料未記錄時間';
+  const p=n=>String(n).padStart(2,'0');
+  return`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
 
 // ── Device memory ──────────────────────────────────────────
 const STORE={member:'dsj-v1-member',parentName:'dsj-v1-parent-name',parentChild:'dsj-v1-parent-child',lastPassage:'dsj-v1-last-passage',parentLastPassage:'dsj-v1-parent-last-passage'};
 function readStore(key){try{return localStorage.getItem(key)||'';}catch{return'';}}
 function writeStore(key,value){try{localStorage.setItem(key,value);}catch{}}
-function removeStore(key){try{localStorage.removeItem(key);}catch{}}
 function readJSON(key){try{return JSON.parse(readStore(key))||null;}catch{return null;}}
 function writeJSON(key,value){writeStore(key,JSON.stringify(value));}
 function normalizeMemberName(name){return String(name||'').normalize('NFKC').replace(/\s+/g,' ').trim();}
@@ -698,17 +718,6 @@ window.startChildCheckin=async function(){
   document.getElementById('home-class-chooser').scrollIntoView({behavior:'smooth',block:'start'});
 };
 window.continueRememberedMember=async function(){const saved=readJSON(STORE.member);if(saved&&saved.id)await window.goRecord(saved.id);};
-window.forgetRememberedMember=function(){removeStore(STORE.member);document.getElementById('remember-card').style.display='none';toast('已切換，請重新選擇孩子');document.getElementById('home-class-chooser').scrollIntoView({behavior:'smooth',block:'start'});};
-window.showCheckinSuccess=function({title,sub,passage,points='+5 分',progress='',secondaryLabel='查看紀錄',secondaryAction}){
-  document.getElementById('success-title').textContent=title;
-  document.getElementById('success-sub').textContent=sub;
-  document.getElementById('success-passage').textContent=passage;
-  document.getElementById('success-points').textContent=points;
-  const progressRow=document.getElementById('success-progress-row');progressRow.style.display=progress?'flex':'none';
-  document.getElementById('success-progress').textContent=progress;
-  const secondary=document.getElementById('success-secondary');secondary.textContent=secondaryLabel;secondary.onclick=secondaryAction;
-  showPage('pg-success');
-};
 
 // ── Cache ──────────────────────────────────────────────────
 let _mc=[],_mct=0,_ptsc=null;
@@ -749,8 +758,13 @@ async function updateMember(id,data){
   const m=_mc.find(x=>x.id===id);if(m){Object.assign(m,data);_ptsc=null;}
 }
 async function deleteMember(id){await deleteDoc(doc(db,'members',id));_mc=_mc.filter(x=>x.id!==id);_ptsc=null;}
-async function getConfig(){const s=await getDoc(doc(db,'config','main'));return s.exists()?s.data():{pw:'admin1234'};}
+async function getConfig(){const s=await getDoc(doc(db,'config','main'));return{pw:'admin1234',announcement:'',announcementEnabled:false,...(s.exists()?s.data():{})};}
 async function setConfig(data){await setDoc(doc(db,'config','main'),data,{merge:true});}
+async function loadAnnouncement(){
+  const box=document.getElementById('home-announcement');const line=document.getElementById('home-announcement-text');if(!box||!line)return;
+  try{const cfg=await getConfig();const msg=String(cfg.announcement||'').trim();line.textContent=msg;box.classList.toggle('show',Boolean(cfg.announcementEnabled&&msg));}
+  catch(err){box.classList.remove('show');console.warn('公告讀取失敗',err);}
+}
 async function getMonthSnap(mk){mk=mk||monthKey();const s=await getDoc(doc(db,'monthlySnap',mk));return s.exists()?s.data():{pts:{}};}
 async function setMonthSnap(mk,data){await setDoc(doc(db,'monthlySnap',mk),data);}
 async function addToMonthSnap(mid,pts){const mk=monthKey();const s=await getMonthSnap(mk);s.pts=s.pts||{};s.pts[mid]=(s.pts[mid]||0)+pts;await setMonthSnap(mk,s);}
@@ -760,7 +774,7 @@ window.showPage=function(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  const showNav=['pg-home','pg-weekly','pg-parent'].includes(id);
+  const showNav=['pg-home','pg-rank','pg-weekly','pg-admin'].includes(id);
   document.getElementById('bottom-nav').style.display=showNav?'flex':'none';
   if(id==='pg-home')renderHome();
   if(id==='pg-admin')renderAdmin();
@@ -769,12 +783,12 @@ window.showPage=function(id){
 
 window.navTo=function(tab){
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
-  const nav=document.getElementById('nav-'+tab);if(nav)nav.classList.add('active');
+  document.getElementById('nav-'+tab).classList.add('active');
   if(tab==='home'){showPage('pg-home');}
-  else if(tab==='checkin'){showPage('pg-home');window.startChildCheckin();}
   else if(tab==='weekly'){showPage('pg-weekly');renderWeeklyPub();}
   else if(tab==='rank'){showPage('pg-rank');renderRankPage();}
   else if(tab==='parent'){window.goParent();}
+  else if(tab==='admin'){window.goAdminLogin();}
 };
 
 // ── Weekly Report (Public) ────────────────────────────────
@@ -894,6 +908,7 @@ window.setWeeklyPubFilter=async function(f){
 
 // ── Home ───────────────────────────────────────────────────
 async function renderHome(){
+  loadAnnouncement();
   const now=new Date();
   const days=['週日','週一','週二','週三','週四','週五','週六'];
   document.getElementById('today-lbl').textContent=`${now.getMonth()+1}月${now.getDate()}日，${days[now.getDay()]}`;
@@ -904,8 +919,7 @@ async function renderHome(){
   const allRecs=rs.docs.map(d=>d.data()).filter(r=>r.type!=='adjust');
   const allPar=ps.docs.map(d=>d.data());
   const today=todayK();
-  window._todayDoneMids=new Set(allRecs.filter(r=>r.date===today).map(r=>r.mid));
-  document.getElementById('today-child-stat').textContent=window._todayDoneMids.size+' 人';
+  document.getElementById('today-child-stat').textContent=new Set(allRecs.filter(r=>r.date===today).map(r=>r.mid)).size+' 人';
   document.getElementById('today-parent-stat').textContent=new Set(allPar.filter(r=>r.date===today).map(r=>normalizeMemberName(r.parentName))).size+' 人';
   renderRememberedCard(members,allRecs,allPar);
   renderStreaks(members,allRecs,allPar);
@@ -994,23 +1008,21 @@ window.goClass=async function(cls){
   document.getElementById('pick-search').value='';
   showPage('pg-pick');
   const grid=document.getElementById('pick-grid');
-  if(_mc.length>0){const cached=_mc.filter(m=>m.cls===cls);window._pickMembers=cached;renderPickGrid(cached);}
+  if(_mc.length>0){const cached=_mc.filter(m=>m.cls===cls);const pm={};cached.forEach(m=>{pm[m.id]=Math.max(0,m.pts||0);});window._pickMembers=cached;window._pickPts=pm;renderPickGrid(cached,pm);}
   else{grid.innerHTML='<div class="loading-view" style="grid-column:1/-1">載入中…</div>';}
-  const members=await loadMembers();
-  if(!window._todayDoneMids){const rs=await getDocs(collection(db,'records'));window._todayDoneMids=new Set(rs.docs.map(d=>d.data()).filter(r=>r.date===todayK()&&r.type!=='adjust').map(r=>r.mid));}
-  window._pickMembers=members.filter(m=>m.cls===cls);renderPickGrid(window._pickMembers);
+  const members=await loadMembers();const ptsMap=await getPtsMap();
+  window._pickMembers=members.filter(m=>m.cls===cls);window._pickPts=ptsMap;renderPickGrid(window._pickMembers,ptsMap);
 };
-function renderPickGrid(list){
+function renderPickGrid(list,ptsMap){
   const grid=document.getElementById('pick-grid');grid.innerHTML='';
   if(!list.length){grid.innerHTML=`<div class="empty-view" style="grid-column:1/-1">找不到符合的學員</div>`;return;}
   list.forEach(m=>{
     const d=document.createElement('button');d.type='button';d.className='mbr-chip';
-    const done=window._todayDoneMids&&window._todayDoneMids.has(m.id);
-    d.innerHTML=`<div class="mbr-av av-${m.cls}">${m.name.slice(0,1)}</div><div class="mbr-name">${eh(m.name)}</div><div class="mbr-pts ${done?'mbr-status-done':'mbr-status-wait'}">${done?'今日完成 ✓':'尚未打卡'}</div>`;
+    d.innerHTML=`<div class="mbr-av av-${m.cls}">${m.name.slice(0,1)}</div><div class="mbr-name">${eh(m.name)}</div><div class="mbr-pts">${ptsMap[m.id]||0} 分</div>`;
     d.onclick=()=>window.goRecord(m.id);grid.appendChild(d);
   });
 }
-window.filterPickMembers=function(value){const q=normalizeMemberName(value);const list=(window._pickMembers||[]).filter(m=>!q||normalizeMemberName(m.name).includes(q));renderPickGrid(list);};
+window.filterPickMembers=function(value){const q=normalizeMemberName(value);const list=(window._pickMembers||[]).filter(m=>!q||normalizeMemberName(m.name).includes(q));renderPickGrid(list,window._pickPts||{});};
 
 // ── Record ─────────────────────────────────────────────────
 window.goRecord=async function(mid){
@@ -1072,12 +1084,7 @@ window.submitRecord=async function(){
     const allPts=await getPtsMap();
     document.getElementById('rec-pts').textContent=(allPts[curMid]||0)+' 分';
     btn.className='btn btn-done';btn.textContent='今日已完成讀經 ✓';
-    await renderRecHistory(curMid);
-    if(window._todayDoneMids)window._todayDoneMids.add(curMid);
-    const updatedRecs=rs.docs.map(d=>d.data()).filter(r=>r.type!=='adjust').concat([{mid:curMid,date:today,passages,pts:5}]);
-    const week=getWeekRange();const weekDays=new Set(updatedRecs.filter(r=>r.mid===curMid&&dateInRange(r.date,week.start,week.end)).map(r=>r.date)).size;
-    const streak=calcStreak(curMid,updatedRecs,[]);const memberId=curMid;
-    window.showCheckinSuccess({title:'今天讀經完成！',sub:m.name+' 做得很好，明天也一起繼續。',passage:passages,progress:'本週 '+weekDays+'/7 天・連續 '+streak+' 天',secondaryLabel:'查看個人紀錄',secondaryAction:()=>window.goRecord(memberId)});
+    await renderRecHistory(curMid);toast('太棒了！'+m.name+' 獲得 +5 分！');
   }catch(err){toast('送出失敗，請再試');btn.disabled=false;btn.className='btn btn-blue';btn.textContent='完成讀經，獲得 +5 分';}
 };
 
@@ -1091,7 +1098,6 @@ window.goParent=async function(){
 async function renderParentPage(){
   const btn=document.getElementById('par-submit');btn.className='btn btn-gold';btn.textContent='送出，加分給選取的孩子';btn.disabled=false;
   document.getElementById('par-confirm-banner').style.display='none';
-  document.getElementById('par-picker-controls').style.display='block';document.getElementById('par-change-btn').style.display='none';
   document.getElementById('par-name').value=readStore(STORE.parentName);document.getElementById('par-passage-input').value=readStore(STORE.parentLastPassage);
   const startCls=parSelCls||'big';
   document.getElementById('par-seg-big').classList.toggle('on',startCls==='big');document.getElementById('par-seg-small').classList.toggle('on',startCls==='small');
@@ -1125,9 +1131,7 @@ window.selectParMember=function(mid,cls,name,pts){
   document.getElementById('par-mbr-'+mid).classList.add('sel');
   const b=document.getElementById('par-confirm-banner');b.style.display='block';
   b.textContent='已選取：'+CLS_N[cls]+' '+name+'（目前 '+pts+' 分）';
-  document.getElementById('par-picker-controls').style.display='none';document.getElementById('par-change-btn').style.display='block';
 };
-window.showParentPicker=function(){document.getElementById('par-picker-controls').style.display='block';document.getElementById('par-change-btn').style.display='none';document.getElementById('par-confirm-banner').style.display='none';};
 async function renderParHistory(){
   const s=await getDocs(collection(db,'parRecords'));
   const recs=s.docs.map(d=>d.data()).sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,8);
@@ -1173,7 +1177,7 @@ window.submitParent=async function(){
     const b=document.getElementById('par-confirm-banner');b.style.display='block';b.textContent=m.name+' 已獲得 +5 分！目前 '+newPts+' 分';
     btn.className='btn btn-done';btn.textContent='已送出 ✓';
     await renderParGrid('big');await renderParGrid('small');await renderParHistory();
-    window.showCheckinSuccess({title:'家長讀經完成！',sub:name+' 已完成今天的讀經，'+m.name+' 獲得 +5 分。',passage:passages,secondaryLabel:'查看家長紀錄',secondaryAction:()=>window.goParent()});
+    toast(name+' 讀經完成，'+m.name+' 獲得 +5 分！');
   }catch(err){toast('送出失敗，請再試');btn.disabled=false;btn.className='btn btn-gold';btn.textContent='送出，加分給選取的孩子';}
 };
 
@@ -1189,7 +1193,8 @@ window.toggleEye=function(inputId,btn){
 window.goAdminLogin=function(){
   if(adminIn){
     document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
-    showPage('pg-admin');document.getElementById('bottom-nav').style.display='none';return;
+    document.getElementById('nav-admin').classList.add('active');
+    showPage('pg-admin');return;
   }
   document.getElementById('pw-input').value='';
   document.getElementById('pw-err').style.display='none';
@@ -1201,8 +1206,8 @@ window.doLogin=async function(){
   if(document.getElementById('pw-input').value===(cfg.pw||'admin1234')){
     adminIn=true;
     document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+    document.getElementById('nav-admin').classList.add('active');
     showPage('pg-admin');
-    document.getElementById('bottom-nav').style.display='none';
   }else{document.getElementById('pw-err').style.display='block';}
 };
 window.adminLogout=function(){adminIn=false;navTo('home');};
@@ -1213,6 +1218,8 @@ window.switchAdmTab=function(id){
   document.getElementById('atab-'+id).classList.add('on');
   document.getElementById('apanel-'+id).classList.add('on');
   if(id==='rank')renderAdmRank();
+  if(id==='range')initRangeScores();
+  if(id==='announcement')renderAdmAnnouncement();
   if(id==='members'){
     renderAdmMembers();renderResetInfo();
     // 初始化補登日期（預設昨天）和學員清單
@@ -1226,6 +1233,29 @@ window.switchAdmTab=function(id){
   if(id==='monthly')renderMonthlyAdmin();
   if(id==='backup')initBackup();
 };
+async function initRangeScores(){
+  const now=new Date();const from=document.getElementById('range-from');const to=document.getElementById('range-to');
+  if(!from.value)from.value=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-01`;
+  if(!to.value)to.value=todayK();
+  await window.renderRangeScores();
+}
+window.renderRangeScores=async function(){
+  const from=document.getElementById('range-from').value;const to=document.getElementById('range-to').value;const cls=document.getElementById('range-cls').value;
+  if(!from||!to){toast('請選擇開始與結束日期');return;}if(from>to){toast('開始日期不能晚於結束日期');return;}
+  const div=document.getElementById('range-score-list');div.innerHTML='<div class="loading-view">計算中…</div>';
+  const members=await loadMembers();const[rs,ps]=await Promise.all([getDocs(collection(db,'records')),getDocs(collection(db,'parRecords'))]);
+  const pts={};
+  rs.docs.forEach(d=>{const r=d.data();if(!r.mid||!r.date||r.date<from||r.date>to)return;pts[r.mid]=(pts[r.mid]||0)+Number(r.pts??5);});
+  ps.docs.forEach(d=>{const r=d.data();if(!r.awardMid||!r.date||r.date<from||r.date>to)return;pts[r.awardMid]=(pts[r.awardMid]||0)+Number(r.pts??5);});
+  const rows=members.filter(m=>m.cls!=='parent'&&(cls==='all'||m.cls===cls)).map(m=>({...m,rangePts:pts[m.id]||0})).sort((a,b)=>b.rangePts-a.rangePts||a.name.localeCompare(b.name,'zh-Hant'));
+  const total=rows.reduce((sum,m)=>sum+m.rangePts,0);const active=rows.filter(m=>m.rangePts!==0).length;
+  document.getElementById('range-total-pts').textContent=(total>0?'+':'')+total+' 分';document.getElementById('range-active-count').textContent=active+' 人';
+  if(!rows.length){div.innerHTML='<div class="empty-view">此班尚無學員</div>';return;}
+  div.innerHTML=rows.map((m,i)=>`<div class="rank-row"><div class="rank-num ${i<3?['g1','g2','g3'][i]:'gx'}">${i+1}</div><div class="rank-av ${m.cls}">${m.name.slice(0,1)}</div><div class="rank-name-col"><div class="rank-name">${eh(m.name)}</div><div class="rank-cls-tag">${CLS_N[m.cls]}・${from.replace(/-/g,'/')}～${to.replace(/-/g,'/')}</div></div><div class="rank-score" style="color:${m.rangePts<0?'var(--red)':'var(--blue)'}">${m.rangePts>0?'+':''}${m.rangePts}分</div></div>`).join('');
+};
+async function renderAdmAnnouncement(){const cfg=await getConfig();document.getElementById('announcement-enabled').value=cfg.announcementEnabled?'true':'false';document.getElementById('announcement-input').value=cfg.announcement||'';window.updateAnnouncementPreview();}
+window.updateAnnouncementPreview=function(){const input=document.getElementById('announcement-input');const enabled=document.getElementById('announcement-enabled').value==='true';const msg=input.value.trim();document.getElementById('announcement-counter').textContent=`${input.value.length} / 120`;document.getElementById('announcement-preview-text').textContent=msg||'公告內容會顯示在這裡';document.getElementById('announcement-preview').style.opacity=enabled?'1':'.45';};
+window.saveAnnouncement=async function(){const input=document.getElementById('announcement-input');const enabled=document.getElementById('announcement-enabled').value==='true';const msg=input.value.trim();if(enabled&&!msg){toast('請先輸入公告內容');input.focus();return;}const btn=document.getElementById('announcement-save');btn.disabled=true;btn.textContent='儲存中…';try{await setConfig({announcement:msg,announcementEnabled:enabled,announcementUpdatedAt:new Date().toISOString()});await loadAnnouncement();toast(enabled?'公告已更新並開啟':'公告已儲存並暫停顯示');}catch(err){toast('公告儲存失敗：'+err.message);}finally{btn.disabled=false;btn.textContent='儲存並同步公告';}};
 async function renderAdmin(){
   const members=await loadMembers();
   const rs=await getDocs(collection(db,'records'));const ps=await getDocs(collection(db,'parRecords'));
@@ -1274,7 +1304,7 @@ window.admAdjPts=async function(id,n){
   const members=await loadMembers();const m=members.find(x=>x.id===id);if(!m)return;
   const allPts=await getPtsMap();const cur=allPts[id]||0;
   const actual=cur+n<0?-cur:n;if(actual===0){toast('積分已是 0，無法再扣');return;}
-  await addDoc(collection(db,'records'),{mid:id,date:todayK(),passages:'管理員調整',pts:actual,type:'adjust'});
+  await addDoc(collection(db,'records'),{mid:id,date:todayK(),passages:'管理員調整',pts:actual,type:'adjust',createdAt:new Date().toISOString()});
   await addToMonthSnap(id,actual);await updateMember(id,{pts:Math.max(0,(m.pts||0)+n)});
   toast(m.name+' 積分已調整');await window.renderAdmMembers();await renderAdmRank();
 };
@@ -1313,7 +1343,7 @@ window.admMakeup=async function(){
   btn.textContent='補登中…';btn.disabled=true;
   try{
     // 後台補登：isMakeup 不設 true，計入連續讀經
-    await addDoc(collection(db,'records'),{mid,date:dateVal,passages,pts:5,isAdminMakeup:true,makeupAt:todayK()});
+    await addDoc(collection(db,'records'),{mid,date:dateVal,passages,pts:5,isAdminMakeup:true,makeupAt:todayK(),createdAt:new Date().toISOString()});
     await addToMonthSnap(mid,5);
     await updateMember(mid,{pts:(m.pts||0)+5});
     document.getElementById('adm-makeup-mid').value='';
@@ -1495,23 +1525,23 @@ window.renderBackup=async function(){
   const members=await loadMembers();const rs=await getDocs(collection(db,'records'));const ps=await getDocs(collection(db,'parRecords'));
   const cls=document.getElementById('bk-cls').value;const from=document.getElementById('bk-from').value;const to=document.getElementById('bk-to').value;
   let rows=[];
-  rs.docs.forEach(d=>{const r=d.data();const m=members.find(x=>x.id===r.mid);if(!m)return;if(cls!=='all'&&cls!=='parent'&&m.cls!==cls)return;if(cls==='parent')return;if(from&&r.date<from)return;if(to&&r.date>to)return;rows.push({date:r.date||'',type:r.type==='adjust'?'管理員調整':r.isMakeup?'補登':'讀經完成',cls:m.cls,name:m.name,target:'',passages:r.passages||'',pts:r.pts||5});});
-  ps.docs.forEach(d=>{const r=d.data();if(cls!=='all'&&cls!=='parent')return;if(from&&r.date<from)return;if(to&&r.date>to)return;rows.push({date:r.date||'',type:'家長讀經',cls:'parent',name:r.parentName||'',target:(CLS_N[r.awardCls]||'')+' '+(r.awardName||''),passages:r.passages||'',pts:r.pts||5});});
-  rows.sort((a,b)=>b.date.localeCompare(a.date));
+  rs.docs.forEach(d=>{const r=d.data();const m=members.find(x=>x.id===r.mid);if(!m)return;if(cls!=='all'&&cls!=='parent'&&m.cls!==cls)return;if(cls==='parent')return;if(from&&r.date<from)return;if(to&&r.date>to)return;rows.push({date:r.date||'',recordedAt:fmtDateTime(r.createdAt),createdAt:r.createdAt||'',type:r.type==='adjust'?'管理員調整':r.isMakeup?'補登':'讀經完成',cls:m.cls,name:m.name,target:'',passages:r.passages||'',pts:r.pts??5});});
+  ps.docs.forEach(d=>{const r=d.data();if(cls!=='all'&&cls!=='parent')return;if(from&&r.date<from)return;if(to&&r.date>to)return;rows.push({date:r.date||'',recordedAt:fmtDateTime(r.createdAt),createdAt:r.createdAt||'',type:'家長讀經',cls:'parent',name:r.parentName||'',target:(CLS_N[r.awardCls]||'')+' '+(r.awardName||''),passages:r.passages||'',pts:r.pts??5});});
+  rows.sort((a,b)=>(b.createdAt||b.date).localeCompare(a.createdAt||a.date));
   document.getElementById('bk-summary').textContent=`共 ${rows.length} 筆（${from||'不限'} ～ ${to||'不限'}）`;
   if(!rows.length){document.getElementById('bk-list').innerHTML='<div class="empty-view">此條件無紀錄</div>';return;}
   const cm={big:'bk-big',small:'bk-small',parent:'bk-parent'};const cn={big:'大班',small:'小班',parent:'家長班'};
-  document.getElementById('bk-list').innerHTML=`<div class="bk-wrap"><table class="bk-table"><thead><tr><th>日期</th><th>類型</th><th>班別</th><th>姓名</th><th>加分對象</th><th>段落</th><th>分</th></tr></thead><tbody>${rows.map(r=>`<tr><td style="white-space:nowrap;font-weight:500">${r.date}</td><td>${r.type==='管理員調整'?`<span class="bk-tag bk-adj">${r.type}</span>`:`<span style="font-size:12px">${r.type}</span>`}</td><td><span class="bk-tag ${cm[r.cls]||'bk-adj'}">${cn[r.cls]||r.cls}</span></td><td style="font-weight:500">${eh(r.name)}</td><td style="color:var(--t2)">${eh(r.target)}</td><td style="max-width:120px;word-break:break-all;color:var(--t2)">${eh(r.passages)}</td><td style="font-weight:700;color:${r.pts>0?'var(--blue)':'var(--red)'}">${r.pts>0?'+':''}${r.pts}</td></tr>`).join('')}</tbody></table></div>`;
+  document.getElementById('bk-list').innerHTML=`<div class="bk-wrap"><table class="bk-table"><thead><tr><th>讀經日期</th><th>登記時間（至秒）</th><th>類型</th><th>班別</th><th>姓名</th><th>加分對象</th><th>段落</th><th>分</th></tr></thead><tbody>${rows.map(r=>`<tr><td style="white-space:nowrap;font-weight:500">${r.date}</td><td style="white-space:nowrap;color:var(--t2)">${r.recordedAt}</td><td>${r.type==='管理員調整'?`<span class="bk-tag bk-adj">${r.type}</span>`:`<span style="font-size:12px">${r.type}</span>`}</td><td><span class="bk-tag ${cm[r.cls]||'bk-adj'}">${cn[r.cls]||r.cls}</span></td><td style="font-weight:500">${eh(r.name)}</td><td style="color:var(--t2)">${eh(r.target)}</td><td style="max-width:120px;word-break:break-all;color:var(--t2)">${eh(r.passages)}</td><td style="font-weight:700;color:${r.pts>0?'var(--blue)':'var(--red)'}">${r.pts>0?'+':''}${r.pts}</td></tr>`).join('')}</tbody></table></div>`;
   window._bkRows=rows;
 };
-window.exportCSV=function(){const rows=window._bkRows;if(!rows||!rows.length){toast('無資料');return;}const cm={big:'大班',small:'小班',parent:'家長班'};const csv=[['日期','類型','班別','姓名','加分對象','讀經段落','分數'].join(','),...rows.map(r=>[r.date,r.type,cm[r.cls]||r.cls,r.name,r.target,'"'+r.passages.replace(/"/g,'""')+'"',r.pts].join(','))];const blob=new Blob(['\uFEFF'+csv.join('\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`點石成金_紀錄_${document.getElementById('bk-from').value||'all'}.csv`;a.click();URL.revokeObjectURL(url);toast('CSV 已下載！');};
+window.exportCSV=function(){const rows=window._bkRows;if(!rows||!rows.length){toast('無資料');return;}const cm={big:'大班',small:'小班',parent:'家長班'};const csv=[['讀經日期','登記時間','類型','班別','姓名','加分對象','讀經段落','分數'].join(','),...rows.map(r=>[r.date,r.recordedAt,r.type,cm[r.cls]||r.cls,r.name,r.target,'"'+r.passages.replace(/"/g,'""')+'"',r.pts].join(','))];const blob=new Blob(['\uFEFF'+csv.join('\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`點石成金_紀錄_${document.getElementById('bk-from').value||'all'}.csv`;a.click();URL.revokeObjectURL(url);toast('CSV 已下載！');};
 window.exportJSON=function(){const rows=window._bkRows;if(!rows||!rows.length){toast('無資料');return;}const blob=new Blob([JSON.stringify(rows,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`點石成金_紀錄_${document.getElementById('bk-from').value||'all'}.json`;a.click();URL.revokeObjectURL(url);toast('JSON 已下載！');};
 
 // 更新版 v1：學員只能由後台新增或匯入，公開頁面不再自動建立資料。
 renderHome();
 window.renderWeeklyPreview=renderWeeklyPreview;
 window.renderAdmMembers=window.renderAdmMembers;
-// update-v1.1-20260714
+// update-v1.1-20260714-range-time
 </script>
 <script>
 if('serviceWorker' in navigator){
