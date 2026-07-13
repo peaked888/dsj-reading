@@ -768,6 +768,8 @@ async function loadAnnouncement(){
 async function getMonthSnap(mk){mk=mk||monthKey();const s=await getDoc(doc(db,'monthlySnap',mk));return s.exists()?s.data():{pts:{}};}
 async function setMonthSnap(mk,data){await setDoc(doc(db,'monthlySnap',mk),data);}
 async function addToMonthSnap(mid,pts){const mk=monthKey();const s=await getMonthSnap(mk);s.pts=s.pts||{};s.pts[mid]=(s.pts[mid]||0)+pts;await setMonthSnap(mk,s);}
+function canUseQueuedWriteFallback(err){const c=String(err&&err.code||'');return c.includes('unavailable')||c.includes('deadline-exceeded')||c.includes('failed-precondition')||c.includes('aborted');}
+async function resyncMemberPts(mid){const pts=await calcAllPtsFromRecords();const exact=Math.max(0,Number(pts[mid]||0));await updateMember(mid,{pts:exact});return exact;}
 
 // ── Nav ────────────────────────────────────────────────────
 window.showPage=function(id){
@@ -1067,25 +1069,22 @@ window.submitRecord=async function(){
     const rs=await getDocs(collection(db,'records'));
     if(rs.docs.some(d=>{const r=d.data();return r.mid===curMid&&r.date===today;})){toast('今日已完成！');btn.className='btn btn-done';btn.textContent='今日已完成讀經 ✓';return;}
     const recRef=doc(db,'records',stableDocId('child',curMid,today));
-    const memberRef=doc(db,'members',curMid);const monthRef=doc(db,'monthlySnap',monthKey());
-    const created=await runTransaction(db,async tx=>{
-      const recSnap=await tx.get(recRef);const memberSnap=await tx.get(memberRef);const monthSnap=await tx.get(monthRef);
-      if(recSnap.exists())return false;
-      if(!memberSnap.exists())throw new Error('找不到學員');
-      const memberData=memberSnap.data();const monthData=monthSnap.exists()?monthSnap.data():{};const pts={...(monthData.pts||{})};
-      pts[curMid]=(pts[curMid]||0)+5;
-      tx.set(recRef,{mid:curMid,date:today,passages,pts:5,createdAt:new Date().toISOString()});
-      tx.update(memberRef,{pts:Math.max(0,(memberData.pts||0)+5)});
-      tx.set(monthRef,{...monthData,pts});
-      return true;
-    });
+    const memberRef=doc(db,'members',curMid);
+    const recData={mid:curMid,date:today,passages,pts:5,createdAt:new Date().toISOString()};let queuedFallback=false;let created;
+    try{created=await runTransaction(db,async tx=>{
+        const recSnap=await tx.get(recRef);const memberSnap=await tx.get(memberRef);
+        if(recSnap.exists())return false;if(!memberSnap.exists())throw new Error('找不到學員');
+        const memberData=memberSnap.data();tx.set(recRef,recData);tx.update(memberRef,{pts:Math.max(0,(memberData.pts||0)+5)});return true;
+      });
+    }catch(txErr){if(!canUseQueuedWriteFallback(txErr))throw txErr;queuedFallback=true;await setDoc(recRef,recData);created=true;await resyncMemberPts(curMid);}
     if(!created){toast('今日已完成！');btn.className='btn btn-done';btn.textContent='今日已完成讀經 ✓';return;}
+    try{await addToMonthSnap(curMid,5);}catch(monthErr){console.warn('月份排行稍後再同步',monthErr);}
     writeStore(STORE.lastPassage,passages);invalidateCache();await loadMembers(true);
     const allPts=await getPtsMap();
     document.getElementById('rec-pts').textContent=(allPts[curMid]||0)+' 分';
     btn.className='btn btn-done';btn.textContent='今日已完成讀經 ✓';
-    await renderRecHistory(curMid);toast('太棒了！'+m.name+' 獲得 +5 分！');
-  }catch(err){toast('送出失敗，請再試');btn.disabled=false;btn.className='btn btn-blue';btn.textContent='完成讀經，獲得 +5 分';}
+    await renderRecHistory(curMid);toast((queuedFallback?'已儲存，連線後會自動同步！':'太棒了！')+m.name+' 獲得 +5 分！');
+  }catch(err){console.error('孩子讀經送出失敗',err);const code=String(err&&err.code||'');toast(code.includes('permission-denied')?'資料庫權限不足，請聯絡管理員':code.includes('unavailable')?'網路連線不穩，請稍後再試':'送出失敗，請再試'+(code?'（'+code+'）':''));btn.disabled=false;btn.className='btn btn-blue';btn.textContent='完成讀經，獲得 +5 分';}
 };
 
 // ── Parent ─────────────────────────────────────────────────
@@ -1158,27 +1157,24 @@ window.submitParent=async function(){
       toast(name+' 今天已填寫過了，每位家長每天限一次');btn.disabled=false;btn.textContent='送出，加分給選取的孩子';return;
     }
     const recRef=doc(db,'parRecords',stableDocId('parent',name,today));
-    const memberRef=doc(db,'members',parSelMid);const monthRef=doc(db,'monthlySnap',monthKey());
-    const created=await runTransaction(db,async tx=>{
-      const recSnap=await tx.get(recRef);const memberSnap=await tx.get(memberRef);const monthSnap=await tx.get(monthRef);
-      if(recSnap.exists())return false;
-      if(!memberSnap.exists())throw new Error('找不到學員');
-      const memberData=memberSnap.data();const monthData=monthSnap.exists()?monthSnap.data():{};const pts={...(monthData.pts||{})};
-      pts[parSelMid]=(pts[parSelMid]||0)+5;
-      tx.set(recRef,{date:today,parentName:name,awardMid:parSelMid,awardName:m.name,awardCls:parSelCls,passages,pts:5,createdAt:new Date().toISOString()});
-      tx.update(memberRef,{pts:Math.max(0,(memberData.pts||0)+5)});
-      tx.set(monthRef,{...monthData,pts});
-      return true;
-    });
+    const memberRef=doc(db,'members',parSelMid);
+    const recData={date:today,parentName:name,awardMid:parSelMid,awardName:m.name,awardCls:parSelCls,passages,pts:5,createdAt:new Date().toISOString()};let queuedFallback=false;let created;
+    try{created=await runTransaction(db,async tx=>{
+        const recSnap=await tx.get(recRef);const memberSnap=await tx.get(memberRef);
+        if(recSnap.exists())return false;if(!memberSnap.exists())throw new Error('找不到學員');
+        const memberData=memberSnap.data();tx.set(recRef,recData);tx.update(memberRef,{pts:Math.max(0,(memberData.pts||0)+5)});return true;
+      });
+    }catch(txErr){if(!canUseQueuedWriteFallback(txErr))throw txErr;queuedFallback=true;await setDoc(recRef,recData);created=true;await resyncMemberPts(parSelMid);}
     if(!created){toast(name+' 今天已填寫過了');btn.disabled=false;btn.textContent='送出，加分給選取的孩子';return;}
+    try{await addToMonthSnap(parSelMid,5);}catch(monthErr){console.warn('月份排行稍後再同步',monthErr);}
     writeStore(STORE.parentName,name);writeStore(STORE.parentLastPassage,passages);writeJSON(STORE.parentChild,{id:m.id,name:m.name,cls:m.cls});
     invalidateCache();await loadMembers(true);
     const allPts=await getPtsMap();const newPts=allPts[parSelMid]||0;
     const b=document.getElementById('par-confirm-banner');b.style.display='block';b.textContent=m.name+' 已獲得 +5 分！目前 '+newPts+' 分';
     btn.className='btn btn-done';btn.textContent='已送出 ✓';
     await renderParGrid('big');await renderParGrid('small');await renderParHistory();
-    toast(name+' 讀經完成，'+m.name+' 獲得 +5 分！');
-  }catch(err){toast('送出失敗，請再試');btn.disabled=false;btn.className='btn btn-gold';btn.textContent='送出，加分給選取的孩子';}
+    toast((queuedFallback?'已儲存，連線後會自動同步！':'')+name+' 讀經完成，'+m.name+' 獲得 +5 分！');
+  }catch(err){console.error('家長讀經送出失敗',err);const code=String(err&&err.code||'');toast(code.includes('permission-denied')?'資料庫權限不足，請聯絡管理員':code.includes('unavailable')?'網路連線不穩，請稍後再試':'送出失敗，請再試'+(code?'（'+code+'）':''));btn.disabled=false;btn.className='btn btn-gold';btn.textContent='送出，加分給選取的孩子';}
 };
 
 // ── Password eye ───────────────────────────────────────────
@@ -1541,7 +1537,7 @@ window.exportJSON=function(){const rows=window._bkRows;if(!rows||!rows.length){t
 renderHome();
 window.renderWeeklyPreview=renderWeeklyPreview;
 window.renderAdmMembers=window.renderAdmMembers;
-// update-v1.1-20260714-range-time
+// update-v1.1-20260714-submit-fix
 </script>
 <script>
 if('serviceWorker' in navigator){
