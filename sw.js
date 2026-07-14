@@ -1,5 +1,5 @@
-// update-v1.1-20260714-submit-fix2 - 還原相容寫入流程，強制淘汰舊快取
-const CACHE = 'dsj-update-v1.1-20260714-submit-fix2';
+// update-v1.2-20260714-version-label - 右下角版本標示，強制淘汰舊快取
+const CACHE = 'dsj-update-v1.2-20260714-version-label';
 
 self.addEventListener('install', e => {
   self.skipWaiting();
